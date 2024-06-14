@@ -1,0 +1,35 @@
+.fit-cover {
+  object-fit: cover;
+}
+
+#carousel-1 {
+  width: 1200px;
+  height: 200px;
+}
+
+.navbar-expand-md {
+  z-index: 999;
+}
+
+.nav-pillsnav-pill {
+}
+
+.link-body-emphasis {
+}
+
+tab-content {
+  margin-top: 100px;
+  position: fixed;
+}
+
+h1 {
+}
+
+.visual-data {
+  color: var(--bs-emphasis-color);
+}
+
+section {
+  align-items: center;
+}
+

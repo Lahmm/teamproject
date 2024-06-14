@@ -1,0 +1,27 @@
+{% extends "layouts/base.html" %}
+<!-- base页面中留存 stylesheets 和 javascripts block, 可以在head中添加部分内容 -->
+{% block stylesheets %}{% endblock stylesheets %}
+{% block javascripts %}{% endblock javascripts %}
+<!-- 更改标题在下方代码块中-->
+{% block title %}<!--页面标题-->{% endblock title %}
+{% block content %}
+    <div style="background: #fffbef;padding-top: 150px;padding-bottom: 100px;margin-top: -24px;margin-bottom: 236px;">
+        <section class="position-relative py-4 py-xl-5" style="margin-top: -16px;background: var(--bs-body-bg);width: auto;margin-right: 160px;margin-left: 160px;padding-top: 150px;box-shadow: 4px 8px 20px 7px rgb(179,184,187);border-radius: 30px;">
+            <div class="container position-relative">
+                <div class="row">
+                    <div class="col-xl-6"><img class="img-fluid" width="480" height="269" src="static/assets/img/5.jpeg" rounded="rounded-3" style="border-radius: 30px;margin-right: -8px;margin-left: 64px;max-width: none;margin-top: 112px;"></div>
+                    <div class="col-md-6 col-xl-4">
+                        <div>
+                            <form class="p-3 p-xl-4" method="post" style="padding-left: 40px;margin-left: 28px;"><img src="static/assets/img/LOGO.png" width="234" height="88" style="margin-left: -2px;margin-bottom: 20px;">
+                                <h4 style="font-size: 30px;font-family: 'Abyssinica SIL', serif;font-weight: bold;text-align: center;color: rgb(132,77,51);">Log In</h4>
+                                <div class="mb-3"><label class="form-label" for="name" style="color: rgb(132,77,51);font-size: 23px;">Email</label><input class="form-control" type="text" id="name" name="name" style="border-width: 3px;"></div>
+                                <div class="mb-3"><label class="form-label" for="name-3" style="color: rgb(132,77,51);font-size: 23px;">Password</label><input class="form-control" type="text" id="name-3" name="name" style="border-width: 3px;"></div>
+                                <div class="mb-3"><button class="btn btn-primary" data-bss-hover-animate="pulse" type="submit" style="margin-right: 126px;margin-top: 22px;background: rgb(255,198,70);color: rgb(132,77,51);border-color: rgb(255,198,70);margin-left: 118px;">Submit</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock content %}

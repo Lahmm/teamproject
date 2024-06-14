@@ -1,0 +1,69 @@
+{% extends "layouts/base.html" %}
+<!-- base页面中留存 stylesheets 和 javascripts block, 可以在head中添加部分内容 -->
+{% block stylesheets %}{% endblock stylesheets %}
+{% block javascripts %}{% endblock javascripts %}
+<!-- 更改标题在下方代码块中-->
+{% block title %}Home{% endblock title %}
+{% block content %}
+    <div>
+        <section style="background: #fffbee;">
+            <div class="img-fluid" style="height: 490px;background: url(&quot;static/assets/img/封面.jpg&quot;) center / cover;margin-top: -18px;"></div>
+            <div class="container h-100 position-relative" style="top: -50px;">
+                <div class="row" style="background: #ffc44a;border-top-left-radius: 40px;border-top-right-radius: 40px;">
+                    <div class="col" style="height: 100px;border-top-left-radius: 50px;">
+                        <h1 style="text-align: center;font-family: 'Abril Fatface', serif;padding-top: 20px;padding-bottom: 15px;color: rgb(132,77,51);">Delivery</h1>
+                    </div>
+                </div>
+                <div class="row gy-5 gy-lg-0 row-cols-1 row-cols-md-2 row-cols-lg-3" style="border-width: 3px;border-color: var(--bs-body-bg);background: #fdf1dc;padding: 20px;padding-top: 60px;padding-right: 20px;border-radius: 20px;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 40px;border-bottom-left-radius: 40px;">
+                    <div class="col" style="margin-left: 120px;margin-right: 60px;">
+                        <div class="card" style="margin-left: 0px;border-radius: 25px;">
+                            <div class="card-body pt-5 p-4" style="background: #fdf8ec;border-radius: 25px;border: 7px double #ffc44a ;"><img data-bss-hover-animate="pulse" class="img-fluid" width="242" height="130" src="static/assets/img/Food.png" style="height: 180px;margin-bottom: 0px;padding-top: 0px;width: 300px;margin-left: 28px;margin-top: -132px;">
+                                <p class="card-text" style="font-family: Abel, sans-serif;font-size: 22px;margin-top: -40px;text-align: center;">Delivery for food such as coffee, takeaway and cakes. The service allows cafes, restaurants and bakeries on campus to deliver fresh coffee, convenient takeaway meals and a variety of cakes directly to users.</p><a href="food_order.html"><button class="btn btn-primary" data-bss-hover-animate="pulse" type="button" style="color: rgb(132,77,51);font-family: 'Abril Fatface', serif;background: rgb(255,196,74);text-align: center;border-color: rgb(255,196,74);font-size: 22px;margin-left: 52px;">FOOD Delivery</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" style="margin-left: 120px;margin-right: 60px;">
+                        <div class="card" style="margin-left: 0px;border-radius: 25px;width: auto;">
+                            <div class="card-body pt-5 p-4" style="background: #fdf8ec;border-radius: 25px;border: 7px double #ffc44a;"><img data-bss-hover-animate="pulse" width="300" height="180" src="static/assets/img/product.png" style="height: 180px;margin-bottom: 0px;padding-top: 0px;width: 380px;margin-top: -132px;margin-left: -44px;">
+                                <p class="card-text" style="font-family: Abel, sans-serif;font-size: 22px;margin-top: -40px;text-align: center;">The Product Delivery service covers the delivery of goods from supermarkets and print stores on campus. Through this service, supermarkets on campus can deliver goods such as daily necessities, snacks and beverages to users.</p><a href="product_order.html"><button class="btn btn-primary" data-bss-hover-animate="pulse" type="button" style="color: rgb(132,77,51);font-family: 'Abril Fatface', serif;background: rgb(255,196,74);text-align: center;border-color: rgb(255,196,74);font-size: 22px;margin-left: 60px;">Product Delivery</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div style="background: #fffbef;"><img class="img-fluid" src="static/assets/img/分割线.png" width="auto" style="width: auto;min-width: -7px;" height=""></div>
+    <div style="background: #fffbef;">
+        <h1 style="font-family: 'Abril Fatface', serif;font-size: 70px;color: rgb(132,77,51);background: #fffbef;margin-bottom: 0;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;VISUALIZATION</h1>
+        <section class="text-white py-4 py-xl-5" style="margin-right: 90px;margin-left: 90px;color: #ffc44a;padding-bottom: 0px;text-align: center;">
+            <div class="container" style="border-radius: 20px;width: 1800px;height: 600px;margin-right: 0px;margin-left: 0px;">
+                <div class="border rounded border-0 d-flex flex-column justify-content-center align-items-center py-5" style="background: linear-gradient(rgba(0,123,255,0.2), rgba(0,123,255,0.2)), url(&quot;static/assets/img/截屏2024-06-04%2003.25.33.png&quot;) center / cover;align-items: center;height: 600px;width: initial;border-radius: 15px;border-top-left-radius: 6px;border-style: double;border-color: var(--bs-emphasis-color);text-align: center;">
+                    <div class="row">
+                        <div class="col-md-10 col-xl-8 text-center d-flex d-sm-flex d-md-flex justify-content-center align-items-center mx-auto justify-content-md-start align-items-md-center justify-content-xl-center img-fluid">
+                            <div>
+                                <h1 class="text-uppercase fw-bold mb-3 visual-data" style="background: #fffbefa9;padding-top: 30px;padding-right: 30px;padding-bottom: 30px;padding-left: 30px;border-radius: 20px;">visualize the number of users by gender, age group, or<br>experiences</h1><a href="user_data.html"><button class="btn btn-light py-2 px-4" data-bss-hover-animate="pulse" type="button" style="font-size: 40px;font-family: 'Abril Fatface', serif;color: rgb(132,77,51);">SEE More Data Analysis</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div>
+        <h1 style="font-family: 'Abril Fatface', serif;font-size: 70px;color: rgb(132,77,51);background: #fffbef;margin-bottom: 0;">&nbsp; &nbsp; &nbsp; &nbsp; Quality Merchants</h1>
+        <p style="font-size: 25px;background: #fffbef;padding-top: 20px;padding-bottom: 20px;margin-bottom: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;The most users choose, the highest praise rate</p>
+        <section class="photo-gallery py-4 py-xl-5" style="background: #fffbef;padding-bottom: 172px;margin-bottom: 230px;">
+            <div class="container">
+                <div class="row gx-2 gy-2 row-cols-1 row-cols-md-2 row-cols-xl-3 photos" data-bss-baguettebox="">
+                    <div class="col item"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img class="img-fluid" data-bss-hover-animate="pulse" src="static/assets/img/QualityGoods/截屏2024-06-04%2003.39.15.png" style="border-radius: 20px;"></a></div>
+                    <div class="col item"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img class="img-fluid" data-bss-hover-animate="pulse" src="static/assets/img/QualityGoods/截屏2024-06-04%2003.40.06.png" style="height: 275px;border-radius: 20px;"></a></div>
+                    <div class="col item"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img class="img-fluid" data-bss-hover-animate="pulse" src="static/assets/img/QualityGoods/截屏2024-06-04%2003.40.32.png" style="height: 275px;border-radius: 20px;"></a></div>
+                    <div class="col item"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img class="img-fluid" data-bss-hover-animate="pulse" src="static/assets/img/QualityGoods/截屏2024-06-04%2003.41.02.png" style="height: 280px;border-radius: 20px;"></a></div>
+                    <div class="col item"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img class="img-fluid" data-bss-hover-animate="pulse" src="static/assets/img/QualityGoods/截屏2024-06-04%2003.46.56.png" style="margin-bottom: 2px;height: 280px;border-radius: 20px;" width="427" height="262"></a></div>
+                    <div class="col item"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img class="img-fluid" data-bss-hover-animate="pulse" src="static/assets/img/QualityGoods/截屏2024-06-04%2003.47.31.png" style="border-radius: 20px;"></a></div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock content %}

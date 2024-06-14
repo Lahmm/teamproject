@@ -1,0 +1,36 @@
+{% extends "layouts/base.html" %}
+<!-- base页面中留存 stylesheets 和 javascripts block, 可以在head中添加部分内容 -->
+{% block stylesheets %}{% endblock stylesheets %}
+{% block javascripts %}{% endblock javascripts %}
+<!-- 更改标题在下方代码块中-->
+{% block title %}<!--页面标题-->{% endblock title %}
+{% block content %}
+    <div>
+        <section class="position-relative py-4 py-xl-5" style="width: auto;margin-left: 160px;margin-right: 160px;background: #ffffff;box-shadow: 5px 5px 16px 2px rgb(120,120,120);border-radius: 30px;border-color: var(--bs-secondary-color);margin-bottom: 348px;margin-top: 84px;">
+            <div class="container position-relative" style="background: #ffffff;padding-top: 40px;padding-bottom: 40px;padding-right: 40px;padding-left: 40px;">
+                <div class="row">
+                    <div class="col"><img class="img-fluid" width="" height="" src="static/assets/img/截屏2024-06-04%2004.04.55.png" rounded="rounded-3" style="border-radius: 20px;max-width: 90%;margin-top: 116px;">
+                        <h1 style="margin-top: 18px;text-align: left;font-family: 'Abril Fatface', serif;color: rgb(132,77,51);">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Delete your Profile</h1><button class="btn btn-primary" type="submit" style="background: rgb(255,198,70);color: rgb(132,77,51);border-color: rgb(255,198,70);margin-left: 295px;margin-top: 12px;font-size: 25px;">DELETE</button>
+                    </div>
+                    <div class="col-md-6 col-xl-4">
+                        <div>
+                            <form class="p-3 p-xl-4" method="post"><img class="img-fluid" src="static/assets/img/LOGO.png" width="auto">
+                                <h4 class="text-center" style="color: rgb(132,77,51);font-family: 'Abril Fatface', serif;font-size: 35px;margin-top: 45px;">Modify Pour Profile</h4>
+                                <p class="text-muted" style="text-align: center;font-family: Abel, sans-serif;margin-bottom: 40px;">Change your personal information</p>
+                                <div class="mb-3"><label class="form-label" for="name">First Name</label><input class="form-control" type="text" id="name" name="name"></div>
+                                <div class="mb-3"><label class="form-label" for="name-5">Last Name</label><input class="form-control" type="text" id="name-5" name="name"></div>
+                                <div class="mb-3"><label class="form-label" for="name-6">Gender</label><input class="form-control" type="text" id="name-6" name="name"></div>
+                                <div class="mb-3"><label class="form-label" for="name-3">Birthday</label><input class="form-control" type="text" id="name-3" name="name"></div>
+                                <div class="mb-3"><label class="form-label" for="name-2">E-mail</label><input class="form-control" type="text" id="name-2" name="name"></div>
+                                <div class="mb-3"><label class="form-label" for="name-1">Phone number</label><input class="form-control" type="text" id="name-1" name="name"></div>
+                                <div class="mb-3"><label class="form-label" for="email">User name</label><input class="form-control" type="email" id="email" name="email"></div>
+                                <div class="mb-3"><label class="form-label" for="name-4">Password</label><input class="form-control" type="text" id="name-4" name="name"></div>
+                                <div class="mb-3"><button class="btn btn-primary" type="submit" style="margin-left: 119px;background: rgb(255,198,70);color: rgb(132,77,51);border-color: rgb(255,198,70);font-size: 25px;">Submit</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock content %}
