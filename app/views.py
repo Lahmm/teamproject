@@ -60,13 +60,14 @@ def create_pid():
 # App main route + generic routing
 @app.route("/")
 def index():
-    session['username'] = 'nihao'   # TODO测试使用，需删除
+    session['email'] = '1'   # TODO测试使用，需删除
+
     return render_template("index.html")
 
 
 @app.route("/order_details")
 def order_page():
-    return render_template("order_1.html")
+    return render_template("order_details.html")
 
 @app.route("/login")
 def login():
@@ -88,20 +89,16 @@ def test():
 
 @app.route("/payment_details")
 def payment():
-    return render_template("payment_details.html")
+    email = session['email']
 
-
-@app.route("/searchpayment", methods=["GET"])
-# TODO 数据库查询语句有问题，三连表查询报错
-def SearchPayment():
-    user = request.args.get("user")
-    print(user)
-
-    if user:
-        sql = "select OrderRequest.Email, OrderTakerEmail, pid, paidtime, paymethod, actualpay, note from Payment inner join OrderAcceptance on Payment.raid = OrderAcceptance.raid inner join OrderRequest on OrderAcceptance.rid = OrderRequest.rid where OrderRequest.Email = %s"
-        cursor.execute(sql, (user))
+    if email:
+        sql = """SELECT OrderRequest.Email, OrderTakerEmail, pid, paidtime, paymethod, actualpay, note
+                 FROM Payment
+                 INNER JOIN OrderAcceptance ON Payment.raid = OrderAcceptance.raid
+                 INNER JOIN OrderRequest ON OrderAcceptance.rid = OrderRequest.rid
+                 WHERE OrderRequest.Email = %s"""
+        cursor.execute(sql, (email,))
         data = cursor.fetchall()
         print(data)
-        return render_template("payment_details.html", data=data)
 
-    return render_template("index.html")
+    return render_template("payment_details.html", data=data)
