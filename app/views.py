@@ -64,7 +64,7 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/order_detials")
+@app.route("/order_details")
 def order_page():
     return render_template("order_1.html")
 
@@ -86,7 +86,7 @@ def test():
     return render_template("test.html", rid=rid, raid=raid, pid=pid)
 
 
-@app.route("/payment")
+@app.route("/payment_details")
 def payment():
     return render_template("payment_details.html")
 
