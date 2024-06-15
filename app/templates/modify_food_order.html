@@ -5,7 +5,7 @@
 <!-- 更改标题在下方代码块中-->
 {% block title %}<!--页面标题-->{% endblock title %}
 {% block content %}
-<form class="p-3 p-xl-4" method="post" action="ordersubmit">
+<form class="p-3 p-xl-4" method="post" action="/modifyordersubmit">
     <div style="background: #fffbef;padding-top: 10px;padding-bottom: 100px;margin-top: -24px;margin-bottom: 236px;">
         <div class="container"
             style="width: auto;margin-left: 124px;padding-right: 0px;margin-right: 1px;height: auto;background: var(--bs-body-bg);box-shadow: 3px 3px 13px;border-radius: 20px;">
@@ -13,59 +13,63 @@
                 style="width: auto;height: auto;padding-right: 0px;padding-left: 0px;margin-right: 156px;margin-left: 160px;padding-bottom: 0px;margin-bottom: 72px;margin-top: 64px;">
                 <div class="col-md-6" style="width: auto;margin-left: -114px;">
 
-                    <h1 style="margin-top: 20px;"><strong><span style="color: rgb(0, 0, 0);">Food</span>
-                            request</strong></h1>
+                    <h1 style="margin-top: 20px;"><strong><span style="color: rgb(0, 0, 0);">Modify</span>
+                            Food Order</strong></h1>
                     <h5 style="font-size: 30px;font-family: 'ADLaM Display', serif;"><strong><span
                                 style="color: rgb(255, 196, 72);">Request content</span></strong></h5><select
                         class="form-select-lg" name="mname">
                         <optgroup label="MERCHANT" name="mname" id="MerchantInput">
-                            <option value="" {% if mname=='' %} selected {% endif %}>Select a Merchant</option>
-                            <option value="LUKIN" {% if mname=='LUKIN' %} selected {% endif %}>LUKIN</option>
-                            <option value="KFC" {% if mname=='KFC' %} selected {% endif %}>KFC</option>
-                            <option value="MacDonald" {% if mname=='MacDonald' %} selected {% endif %}>MacDonald
+                            <option value="" {% if mInformation['Merchant']=="" %} selected {% endif %}>Select a
+                                Merchant</option>
+                            <option value="LUKIN" {% if mInformation['Merchant']=="LUKIN" %} selected {% endif %}>LUKIN
                             </option>
-                            <option value="PizzaHot" {% if mname=='PizzaHot' %} selected {% endif %}>PizzaHot</option>
+                            <option value="KFC" {% if mInformation['Merchant']=="KFC" %} selected {% endif %}>KFC
+                            </option>
+                            <option value="MacDonald" {% if mInformation['Merchant']=="MacDonald" %} selected {% endif
+                                %}>MacDonald
+                            </option>
+                            <option value="PizzaHot" {% if mInformation['Merchant']=="PizzaHot" %} selected {% endif %}>
+                                PizzaHot</option>
                         </optgroup>
                     </select>
                     <div class="card" style="margin-top: 20px;">
 
                         <div class="mb-3"><label class="form-label" for="inputemail">Email(测试用，有登录界面后删)</label><input
                                 class="form-control" type="email" id="inputemail" name="inputemail"
-                                value="{{inputemail}}" required></div>
+                                value="{{mInformation['Email']}}" required></div>
                         <div class="mb-3"><label class="form-label" for="oraddress"
                                 style="font-size: 18px;font-weight: bold;">Pick-up location</label><input
-                                class="form-control" type="text" id="oraddress" name="oraddress" value="{{oraddress}}"
-                                style="border-width: 2px;" required></div>
+                                class="form-control" type="text" id="oraddress" name="oraddress"
+                                value="{{mInformation['PickupAddress']}}" style="border-width: 2px;" required></div>
                         <div class="mb-3"><label class="form-label" for="deaddress"
                                 style="font-size: 18px;font-weight: bold;">Delivery location</label><input
-                                class="form-control" type="text" id="deaddress" name="deaddress" value="{{deaddress}}"
-                                style="border-width: 2px;" required></div>
+                                class="form-control" type="text" id="deaddress" name="deaddress"
+                                value="{{mInformation['DeliveryAddress']}}" style="border-width: 2px;" required></div>
                         <div class="mb-3"><label class="form-label" for="tele"
                                 style="font-size: 18px;font-weight: bold;">Telephone</label><input
-                                class="form-control" type="tel" id="tele" pattern="[0-9]{1,15}" name="tele" value="{{tele}}"
-                                style="border-width: 2px;" required></div>
+                                style="border-width: 2px;" name="tele" value="{{mInformation['OrderTelephone']}}" required></div>
                         <div class="mb-3"><label class="form-label" for="detime"
                                 style="font-size: 18px;font-weight: bold;">Expected delivery time</label> <input
-                                type="datetime-local" id="detime" name="detime" value="{{detime}}" required></div>
+                                type="datetime-local" id="detime" name="detime" value="{{mInformation['DeliveryTime']}}" required></div>
                         <div class="mb-3"><label class="form-label" for="apay"
                                 style="font-size: 18px;font-weight: bold;">Fees</label><input class="form-control"
-                                type="number" id="apay" name="apay" value="{{apay}}" required></div>
+                                type="number" id="apay" name="apay" value="{{mInformation['AdvancePayment']}}" required></div>
                         <div class="mb-3"><label class="form-label" for="content"
                                 style="font-size: 18px;font-weight: bold;">Content</label><textarea class="form-control"
-                                id="content" name="content"  rows="6"
-                                style="height: 46px;border-width: 2px;"></textarea></div>
-                                <script>
-                                    document.getElementById('content').value = '{{content}}';
-                                </script>
-                        {%with messages = get_flashed_messages()%}
-                        {%if messages%}
-                        <ul>
-                            {% for message in messages%}
-                            <li>{{message}}</li>
-                            {%endfor%}
-                        </ul>
-                        {% endif %}
-                        {% endwith%}
+                                id="content" name="content" rows="6" style="height: 46px;border-width: 2px;"></textarea>
+                        </div>
+                        <script>
+                            document.getElementById('content').value = "{{mInformation['Content']}}";
+                        </script>
+               {%with messages = get_flashed_messages()%}
+               {%if messages%}
+               <ul>
+                   {% for message in messages%}
+                   <li>{{message}}</li>
+                   {%endfor%}
+               </ul>
+               {% endif %}
+               {% endwith%}
                     </div>
                     <div class="row">
                         <div class="col-lg-6">

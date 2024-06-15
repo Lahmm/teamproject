@@ -21,6 +21,7 @@ dbConn = pymysql.connect(
     user="misy410group07",
     database="misy410group07",
     password="@Z8KL9PxVqgWGvnRe",
+    cursorclass=pymysql.cursors.DictCursor,
 )
 
 cursor = dbConn.cursor()

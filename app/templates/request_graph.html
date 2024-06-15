@@ -1,0 +1,56 @@
+
+{% extends 'layouts/base.html' %}
+{% block content %}
+
+{{merchants_view}}
+
+
+
+{%with messages = get_flashed_messages()%}
+{%if messages%}
+<ul>
+    {% for message in messages%}
+    <li>{{message}}</li>
+    {%endfor%}
+</ul>
+{% endif %}
+{% endwith%}
+
+
+
+<section>
+    <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+    <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.gammel.js"></script>
+    <script>
+
+        //receive data from views.py
+        var importedData = JSON.parse({{merchants_view | tojson | safe}});
+        const dataSource = {
+            chart: {
+              caption: "Total inventory value of the products provided by this supplier",
+              subcaption: " total in-stock value = UnitInStock*UnitPrice",
+              xaxisname: "Product Name",
+              yaxisname: "total in-stock value",
+              numbersuffix: "$",
+              theme: "gammel"
+            },
+            data: importedData
+        };
+      
+      FusionCharts.ready(function() {
+        var myChart = new FusionCharts({
+          type: "column2d",
+          renderAt: "chart-container",
+          width: "100%",
+          height: "100%",
+          dataFormat: "json",
+          dataSource
+        }).render();
+      });
+    
+    </script>
+    <div id="chart-container"></div>
+
+</section>
+
+{% endblock content %}

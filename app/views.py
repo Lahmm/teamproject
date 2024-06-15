@@ -4,8 +4,9 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 # Flask modules
-from flask import render_template, request, redirect, url_for, flash, session
+from flask import render_template, request, redirect, url_for, flash, session,json
 from jinja2 import TemplateNotFound
+from datetime import datetime
 import time
 import random
 
@@ -18,15 +19,24 @@ from app import app, cursor, dbConn
 
 
 # 定义在下文中使用的函数
+#def is_login():
+   # """
+    #用于检测用户的登陆状态,返回一个bool值,需要在除index页面之外调用
+    #由于检测对象为username 和 email, 在用户登陆后存储在session中的对应字段应为“username” 和 “email”
+    #"""
+    #if "username" in session and "email":
+    #    return True
+    #else:
+    #    return False
+
+#测试订单页session用，与上面的username有点冲突，到时候调整
+#你们要用上面的函数测试的时候帮我把下面这个加注释一下
 def is_login():
-    """
-    用于检测用户的登陆状态,返回一个bool值,需要在除index页面之外调用
-    由于检测对象为username 和 email, 在用户登陆后存储在session中的对应字段应为“username” 和 “email”
-    """
-    if "username" in session and "email":
+    if 'email' in session:
         return True
     else:
         return False
+
 
 
 def create_rid():
@@ -64,7 +74,7 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/order_details")
+@app.route("/order_1")
 def order_page():
     return render_template("order_1.html")
 
@@ -105,3 +115,169 @@ def SearchPayment():
         return render_template("payment_details.html", data=data)
 
     return render_template("index.html")
+
+
+
+##发送订单
+@app.route('/food_order')
+def food_order():
+    return render_template('food_order.html')
+
+
+@app.route('/product_order')
+def product_order():
+    return render_template('product_order.html')
+
+
+@app.route('/ordersubmit', methods=['POST'])
+def OrderSubmit():
+# Get the user input values from the form
+ inputemail =request.form.get('inputemail') ##测试用，有登陆界面了删
+ detime = request.form.get('detime')
+ tele = request.form.get('tele')
+ oraddress = request.form.get('oraddress')
+ deaddress = request.form.get('deaddress')
+ mname = request.form.get('mname')
+ apay = request.form.get('apay')
+ content = request.form.get('content')
+ error = False
+ Order_time = datetime.now()
+ # input validation
+ if float(apay) < 0 or float(apay) > 1000:
+      error = True
+      flash('payment should be a number > 0 and < 1000')
+ if not mname:
+      error = True
+      flash('Please select Merchant')
+ if error:
+        #return to the form page
+        return render_template('food_order.html',content=content,detime=detime,tele=tele,oraddress=oraddress, deaddress=deaddress,mname=mname,inputemail=inputemail,apay=apay)
+    
+ else:
+#do the database operations
+     sql= 'use misy410group07'
+     cursor.execute(sql)
+     sql = 'insert into OrderRequest (RequestTime, RequestContent, DeliveryTime, OrderTelephone,PickupAddress,DeliveryAddress, Merchant, Email, AdvancePayment) VALUES (%s, %s, %s,%s,%s,%s,%s,%s,%s)'
+
+     cursor.execute(sql,(Order_time,content,detime,int(tele),oraddress,deaddress,mname,inputemail,float(apay)))
+     flash('order successfully')
+     
+     session['email'] = inputemail ##测试用
+     output = session.get('email')
+     flash(output)
+
+
+     return render_template('food_order.html')
+ 
+#我发送的订单
+@app.route('/order_2')
+def order_2():
+   if is_login():
+     information = session.get('email') 
+     sql= 'use misy410group07'
+     cursor.execute(sql)
+     sql = 'select * from OrderRequest where Email = %s'
+     cursor.execute(sql,information)
+     oRequests = cursor.fetchall()
+     if oRequests:
+         return render_template('order_2.html',information=information,oRequests=oRequests)
+     else:
+         flash('no requests')
+     
+   else:
+     return redirect('/login')
+
+#修改订单
+@app.route('/modify_order', methods=['POST'])  #modify my post
+def modify_order():
+  rid= request.form.get('rid')
+  sql= 'use misy410group07'
+  cursor.execute(sql)
+  sql = 'select * from OrderRequest where rid = %s'
+  cursor.execute(sql,rid)
+  mInformation = cursor.fetchone()
+  session ['rid']= rid
+  return render_template('modify_food_order.html',mInformation=mInformation)
+
+@app.route('/modifyordersubmit',methods=['POST'])
+def modifysubmit():
+  error = False
+  inputemail =request.form.get('inputemail')
+  detime = request.form.get('detime')
+  tele = request.form.get('tele')
+  oraddress = request.form.get('oraddress')
+  deaddress = request.form.get('deaddress')
+  mname = request.form.get('mname')
+  apay =request.form.get('apay')
+  content = request.form.get('content')
+
+  rid = session.get('rid')
+  sql= 'use misy410group07'
+  cursor.execute(sql)
+  sql = 'select * from OrderRequest where rid = %s'
+  cursor.execute(sql,rid)
+  mInformation = cursor.fetchone() ##这里有点问题，if error不知道怎么返回重新输入后的值
+ 
+  if float(apay) < 0 or float(apay) > 1000:
+       error = True
+       flash('payment should be a number > 0 and < 1000')
+
+  if error:
+        #return to the form page
+      return render_template('modify_food_order.html',content=content,detime=detime,tele=tele,oraddress=oraddress, deaddress=deaddress,mname=mname,inputemail=inputemail,apay=apay,mInformation=mInformation)
+
+  else:
+    sql = 'update OrderRequest set RequestContent= %s , DeliveryTime= %s, OrderTelephone=%s ,PickupAddress=%s,DeliveryAddress=%s, Merchant=%s, AdvancePayment=%s where rid=%s' 
+    cursor.execute(sql,(content,detime,int(tele),oraddress,deaddress,mname,float(apay),rid))
+    flash('updated successfully')
+    return render_template('modify_food_order.html',mInformation=mInformation)
+
+#取消订单
+@app.route('/deleteRequest',methods=['POST'])
+def deleteRequest():
+  rid = request.form.get('rid')
+  sql= 'use misy410group07'
+  cursor.execute(sql)
+  sql = 'delete from OrderRequest where rid = %s'
+  cursor.execute(sql,rid)
+  return redirect('/order_2')
+
+
+#order request可视化
+@app.route('/request_data')
+def request_data():
+  if is_login():
+    sql = 'select Merchant from OrderRequest'
+    cursor.execute(sql)  #is a table
+    merchants = cursor.fetchall()
+    return render_template('request_data.html',merchants=merchants)
+  else:
+     return redirect('/login')
+
+
+@app.route('/RequestGraph', methods=['GET'])
+def request_graph():
+
+    mname = request.args.get('mname')
+    if mname:
+        sql = 'select Merchant as label, count(rid) as value from OrderRequest where Merchant = %s group by Merchant'
+        cursor.execute(sql,(mname))
+        merchants_view = cursor.fetchall()
+        chartData = json.dumps(merchants_view)
+        flash(mname)
+        return render_template('request_graph.html', merchants_view=chartData)
+     
+        #flash(merchants_view)
+       # return render_template('request_data.html')
+    else:
+        sql = 'select Merchant as label, count(rid) as value from OrderRequest group by Merchant'
+        cursor.execute(sql)
+        merchants_view = cursor.fetchall()
+        #flash(merchants_view)
+        #return render_template('request_data.html')
+        chartData = json.dumps(merchants_view)
+        flash('nothing')
+        return render_template('request_graph.html',merchants_view=chartData)
+   
+
+
