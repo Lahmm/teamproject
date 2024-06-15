@@ -18,14 +18,14 @@
                 <div class="row gy-5 gy-lg-0 row-cols-1 row-cols-md-2 row-cols-lg-3" style="border-width: 3px;border-color: var(--bs-body-bg);background: #fdf1dc;padding: 20px;padding-top: 60px;padding-right: 20px;border-radius: 20px;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 40px;border-bottom-left-radius: 40px;">
                     <div class="col" style="margin-left: 120px;margin-right: 60px;">
                         <div class="card" style="margin-left: 0px;border-radius: 25px;">
-                            <div class="card-body pt-5 p-4" style="background: #fdf8ec;border-radius: 25px;border: 7px double #ffc44a ;"><img data-bss-hover-animate="pulse" class="img-fluid" width="242" height="130" src="static/assets/img/Food.png" style="height: 180px;margin-bottom: 0px;padding-top: 0px;width: 300px;margin-left: 28px;margin-top: -132px;">
+                            <div class="card-body pt-5 p-4" style="background: #fdf8ec;border-radius: 25px;border: 7px double #ffc44a ;"><img data-bss-hover-animate="pulse" class="img-fluid" width="242" height="130" src="{{ url_for('static', filename='assets/img/Food.png') }}" style="height: 180px;margin-bottom: 0px;padding-top: 0px;width: 300px;margin-left: 28px;margin-top: -132px;">
                                 <p class="card-text" style="font-family: Abel, sans-serif;font-size: 22px;margin-top: -40px;text-align: center;">Delivery for food such as coffee, takeaway and cakes. The service allows cafes, restaurants and bakeries on campus to deliver fresh coffee, convenient takeaway meals and a variety of cakes directly to users.</p><a href="food_order.html"><button class="btn btn-primary" data-bss-hover-animate="pulse" type="button" style="color: rgb(132,77,51);font-family: 'Abril Fatface', serif;background: rgb(255,196,74);text-align: center;border-color: rgb(255,196,74);font-size: 22px;margin-left: 52px;">FOOD Delivery</button></a>
                             </div>
                         </div>
                     </div>
                     <div class="col" style="margin-left: 120px;margin-right: 60px;">
                         <div class="card" style="margin-left: 0px;border-radius: 25px;width: auto;">
-                            <div class="card-body pt-5 p-4" style="background: #fdf8ec;border-radius: 25px;border: 7px double #ffc44a;"><img data-bss-hover-animate="pulse" width="300" height="180" src="static/assets/img/product.png" style="height: 180px;margin-bottom: 0px;padding-top: 0px;width: 380px;margin-top: -132px;margin-left: -44px;">
+                            <div class="card-body pt-5 p-4" style="background: #fdf8ec;border-radius: 25px;border: 7px double #ffc44a;"><img data-bss-hover-animate="pulse" width="300" height="180" src="{{ url_for('static', filename='assets/img/product.png') }}" style="height: 180px;margin-bottom: 0px;padding-top: 0px;width: 380px;margin-top: -132px;margin-left: -44px;">
                                 <p class="card-text" style="font-family: Abel, sans-serif;font-size: 22px;margin-top: -40px;text-align: center;">The Product Delivery service covers the delivery of goods from supermarkets and print stores on campus. Through this service, supermarkets on campus can deliver goods such as daily necessities, snacks and beverages to users.</p><a href="product_order.html"><button class="btn btn-primary" data-bss-hover-animate="pulse" type="button" style="color: rgb(132,77,51);font-family: 'Abril Fatface', serif;background: rgb(255,196,74);text-align: center;border-color: rgb(255,196,74);font-size: 22px;margin-left: 60px;">Product Delivery</button></a>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
             </div>
         </section>
     </div>
-    <div style="background: #fffbef;"><img class="img-fluid" src="static/assets/img/分割线.png" width="auto" style="width: auto;min-width: -7px;" height=""></div>
+    <div style="background: #fffbef;"><img class="img-fluid" src="{{ url_for('static', filename='assets/img/分割线.png') }}" width="auto" style="width: auto;min-width: -7px;" height=""></div>
     <div style="background: #fffbef;">
         <h1 style="font-family: 'Abril Fatface', serif;font-size: 70px;color: rgb(132,77,51);background: #fffbef;margin-bottom: 0;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;VISUALIZATION</h1>
         <section class="text-white py-4 py-xl-5" style="margin-right: 90px;margin-left: 90px;color: #ffc44a;padding-bottom: 0px;text-align: center;">
@@ -57,12 +57,12 @@
         <section class="photo-gallery py-4 py-xl-5" style="background: #fffbef;padding-bottom: 172px;margin-bottom: 230px;">
             <div class="container">
                 <div class="row gx-2 gy-2 row-cols-1 row-cols-md-2 row-cols-xl-3 photos" data-bss-baguettebox="">
-                    <div class="col item"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img class="img-fluid" data-bss-hover-animate="pulse" src="static/assets/img/QualityGoods/截屏2024-06-04%2003.39.15.png" style="border-radius: 20px;"></a></div>
-                    <div class="col item"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img class="img-fluid" data-bss-hover-animate="pulse" src="static/assets/img/QualityGoods/截屏2024-06-04%2003.40.06.png" style="height: 275px;border-radius: 20px;"></a></div>
-                    <div class="col item"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img class="img-fluid" data-bss-hover-animate="pulse" src="static/assets/img/QualityGoods/截屏2024-06-04%2003.40.32.png" style="height: 275px;border-radius: 20px;"></a></div>
-                    <div class="col item"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img class="img-fluid" data-bss-hover-animate="pulse" src="static/assets/img/QualityGoods/截屏2024-06-04%2003.41.02.png" style="height: 280px;border-radius: 20px;"></a></div>
-                    <div class="col item"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img class="img-fluid" data-bss-hover-animate="pulse" src="static/assets/img/QualityGoods/截屏2024-06-04%2003.46.56.png" style="margin-bottom: 2px;height: 280px;border-radius: 20px;" width="427" height="262"></a></div>
-                    <div class="col item"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img class="img-fluid" data-bss-hover-animate="pulse" src="static/assets/img/QualityGoods/截屏2024-06-04%2003.47.31.png" style="border-radius: 20px;"></a></div>
+                    <div class="col item"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img class="img-fluid" data-bss-hover-animate="pulse" src="{{ url_for('static', filename='assets/img/QualityGoods/截屏2024-06-04%2003.39.15.png') }}" style="border-radius: 20px;"></a></div>
+                    <div class="col item"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img class="img-fluid" data-bss-hover-animate="pulse" src="{{ url_for('static', filename='assets/img/QualityGoods/截屏2024-06-04%2003.40.06.png') }}" style="height: 275px;border-radius: 20px;"></a></div>
+                    <div class="col item"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img class="img-fluid" data-bss-hover-animate="pulse" src="{{ url_for('static', filename='assets/img/QualityGoods/截屏2024-06-04%2003.40.32.png') }}" style="height: 275px;border-radius: 20px;"></a></div>
+                    <div class="col item"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img class="img-fluid" data-bss-hover-animate="pulse" src="{{ url_for('static', filename='assets/img/QualityGoods/截屏2024-06-04%2003.41.02.png') }}" style="height: 280px;border-radius: 20px;"></a></div>
+                    <div class="col item"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img class="img-fluid" data-bss-hover-animate="pulse" src="{{ url_for('static', filename='assets/img/QualityGoods/截屏2024-06-04%2003.46.56.png') }}" style="margin-bottom: 2px;height: 280px;border-radius: 20px;" width="427" height="262"></a></div>
+                    <div class="col item"><a href="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"><img class="img-fluid" data-bss-hover-animate="pulse" src="{{ url_for('static', filename='assets/img/QualityGoods/截屏2024-06-04%2003.47.31.png') }}" style="border-radius: 20px;"></a></div>
                 </div>
             </div>
         </section>

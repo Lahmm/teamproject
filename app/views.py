@@ -4,10 +4,12 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 # Flask modules
-from flask import render_template, request, redirect, url_for, flash, session
+from flask import render_template, request, redirect, url_for, flash, session,jsonify
 from jinja2 import TemplateNotFound
 import time
 import random
+from datetime import datetime
+import logging
 
 # App modules
 from app import app, cursor, dbConn
@@ -105,3 +107,104 @@ def SearchPayment():
         return render_template("payment_details.html", data=data)
 
     return render_template("index.html")
+
+@app.route('/chooseOrder')
+def chooseOrder():
+    sql = "SELECT * FROM OrderRequest"
+    cursor.execute(sql)
+    OrderAcc = cursor.fetchall()
+    return render_template('order_1.html',OrderAcc=OrderAcc)
+
+
+
+@app.route('/order_details/<int:order_id>')
+def order_details(order_id):
+    sql = "SELECT * FROM OrderRequest WHERE rid = %s"
+    cursor.execute(sql, (order_id,))
+    order = cursor.fetchone()
+    return render_template('order_details.html', order=order)
+
+@app.route('/accept_order', methods=['POST'])
+def accept_order():
+    data = request.get_json()
+    print("Received data:", data)  # 打印接收到的数据
+    order_id = data.get('orderId')
+    acceptance_time = datetime.fromisoformat(data.get('acceptanceTime').replace('Z', '+00:00'))
+    receiving = 1
+    email = data.get('email')
+
+    if not order_id or not acceptance_time or not email:
+        print("Missing data:", {'order_id': order_id, 'acceptance_time': acceptance_time, 'email': email})  # 打印缺失的数据
+        return jsonify({'error': 'Missing data'}), 400
+    else:
+        try:
+            print("Inserting into OrderAcceptance table:", {'order_id': order_id, 'acceptance_time': acceptance_time, 'email': email})  # 打印插入 OrderAcceptance 表的数据
+            sql = "INSERT INTO OrderAcceptance (rid, AcceptanceTime, OrderTakerEmail) VALUES (%s, %s, %s)"
+            cursor.execute(sql, (order_id, acceptance_time, email))
+            print("Updating OrderRequest table:", {'receiving': receiving, 'order_id': order_id})  # 打印更新 OrderRequest 表的数据
+            sql = "UPDATE OrderRequest SET Receiving = %s WHERE rid = %s"
+            cursor.execute(sql, (receiving, order_id))
+            print("Redirecting to 'chooseOrder' page")  # 打印重定向操作
+            return redirect(url_for('chooseOrder'))
+        except Exception as e:
+            print(f"Error: {e}")  # 打印错误信息
+            return jsonify({'error': str(e)}), 500
+
+@app.route('/searchResult', methods=['GET'])
+def search_products_result():
+    merchant = request.args.get('merchant')
+    #retrieve the product records from the database for the given sid
+    if merchant:
+        sql="SELECT * FROM OrderRequest WHERE Merchant LIKE %s"
+        cursor.execute(sql,('%'+merchant+'%',))
+        result = cursor.fetchall()
+
+        #send the product table back
+        return render_template('productSearchResult.html',OrderAcc=result)
+    sql2 = "SELECT * FROM OrderRequest"
+    cursor.execute(sql2)
+    OrderAcc = cursor.fetchall()
+    return render_template('Result.html',OrderAcc=OrderAcc)
+
+@app.route('/accept')
+def accept():
+    sql = "SELECT * FROM OrderAcceptance oa INNER JOIN OrderRequest orq ON oa.rid = orq.rid;"
+    cursor.execute(sql)
+    OrderAcc = cursor.fetchall()
+    return render_template('order_3.html',OrderAcc=OrderAcc)
+
+@app.route('/cancelOrder', methods=['POST'])
+def cancel_order():
+    order_id = request.json.get('orderId')
+    if order_id:
+        sql="DELETE FROM OrderAcceptance WHERE rid = %s;"
+        cursor.execute(sql,(order_id,))
+        print("Order has been successfully canceled")
+        return jsonify({'message': 'Order has been successfully canceled'})
+    return jsonify({'message': 'Order Cancellation Failed'})
+
+# 定义一个路由，用于处理定时轮询请求
+@app.route('/checkForUpdates')
+def check_for_updates():
+    global updates_available
+    if updates_available:
+        # 如果有更新，则返回更新信息
+        return jsonify({'updatesAvailable': True})
+    else:
+        # 如果没有更新，则返回没有更新的信息
+        return jsonify({'updatesAvailable': False})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

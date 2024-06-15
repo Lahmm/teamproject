@@ -5,16 +5,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>{% block title %}{% endblock title %}</title>
-    <link rel="stylesheet" href="static/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abel&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abyssinica+SIL&amp;display=swap">
-    <link rel="stylesheet" href="static/assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="static/assets/css/animate.min.css">
-    <link rel="stylesheet" href="static/assets/css/Boostrap-Tabs.css">
-    <link rel="stylesheet" href="static/assets/css/Features-Image-images.css">
-    <link rel="stylesheet" href="static/assets/css/Lightbox-Gallery-baguetteBox.min.css">
-    <link rel="stylesheet" href="static/assets/css/Navbar-Centered-Links-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/fonts/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Boostrap-Tabs.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Features-Image-images.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Lightbox-Gallery-baguetteBox.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Navbar-Centered-Links-icons.css') }}">
     {% block stylesheets %}{% endblock stylesheets %}
     {% block javascripts %}{% endblock javascripts %}
 </head>
@@ -22,7 +22,7 @@
 <body>
     <div style="background: #fdf8e5;">
         <nav class="navbar navbar-expand-md bg-body py-3" style="margin-left: 60px;width: auto;border-radius: 25px;box-shadow: 5px 5px 16px 1px rgb(136,140,143);margin-top: 20px;margin-right: 60px;margin-bottom: 16px;padding-top: 20px;border-color: rgb(188,192,195);text-shadow: 1px 1px 6px rgb(156,160,163);background: rgb(253,248,229);min-width: -11px;">
-            <div class="container"><img src="static/assets/img/LOGO.png" width="160" height="72" style="width: 220px;margin-left: 0px;margin-right: -4px;padding-left: 0px;"><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="container"><img src="{{ url_for('static', filename='assets/img/LOGO.png') }}" width="160" height="72" style="width: 220px;margin-left: 0px;margin-right: -4px;padding-left: 0px;"><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navcol-1" style="width: 1500px;">
                     <ul class="navbar-nav mx-auto" style="margin-right: 46px;margin-left: 312px;">
                         <li class="nav-item {% block homeactive %}{% endblock homeactive %}"><a class="nav-link fs-4 text-center" data-bss-hover-animate="pulse" href="/" style="--bs-body-color: #4b4d4f;font-size: 30px;color: #844d33;font-family: 'Abril Fatface', serif;font-weight: bold;text-shadow: 0px 0px;margin-right: 20px;">Home</a></li>
@@ -43,7 +43,7 @@
         </nav>
     </div>
         {% block content %}{% endblock content %}
-    <footer class="text-center footer" style="background: #ffc448;height: 150px;padding-top: 0px;width: auto;margin-top: 4px;"><img class="img-fluid" src="static/assets/img/Footer.png" width="auto" style="margin-top: -316px;background: #fffbef;margin-bottom: -53px;" height="">
+    <footer class="text-center footer" style="background: #ffc448;height: 150px;padding-top: 0px;width: auto;margin-top: 4px;"><img class="img-fluid" src="{{ url_for('static', filename='assets/img/Footer.png') }}" width="auto" style="margin-top: -316px;background: #fffbef;margin-bottom: -53px;" height="">
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-5 mb-lg-0">
@@ -69,10 +69,10 @@
             <div class="container"><small>Copyright ©&nbsp;Brand 2024</small></div>
         </div>
     </footer>
-    <script src="static/assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="static/assets/js/bs-init.js"></script>
-    <script src="static/assets/js/Lightbox-Gallery-baguetteBox.min.js"></script>
-    <script src="static/assets/js/Lightbox-Gallery.js"></script>
+    <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/bs-init.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/Lightbox-Gallery-baguetteBox.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/Lightbox-Gallery.js') }}"></script>
 </body>
     
 </html>

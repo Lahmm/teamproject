@@ -5,8 +5,8 @@
 <!-- 更改标题在下方代码块中-->
 {% block title %}<!--页面标题-->{% endblock title %}
 {% block content %}
-    <div style="text-align: center;"><img class="img-fluid" src="static/assets/img/封面4.png" width="1172" height="300" style="width: auto;"></div>
-    <div style="background: #fffbef;"><img class="img-fluid" src="static/assets/img/分割线.png" width="auto" style="width: auto;background: #fffcf0;" height=""></div>
+    <div style="text-align: center;"><img class="img-fluid" src="{{ url_for('static', filename='assets/img/封面4.png') }}" width="1172" height="300" style="width: auto;"></div>
+    <div style="background: #fffbef;"><img class="img-fluid" src="{{ url_for('static', filename='assets/img/分割线.png') }}" width="auto" style="width: auto;background: #fffcf0;" height=""></div>
     <section style="padding-bottom: 0px;height: auto;">
         <div class="container" style="width: auto;height: 100px;background: #ffc449;margin: auto;margin-top: 44px;">
             <div class="d-flex flex-column justify-content-between align-items-center flex-lg-row p-4 p-lg-5" data-bs-theme="light" style="width: auto;margin-top: -44px;margin-bottom: -46px;height: 100px;background: #f8d685;">

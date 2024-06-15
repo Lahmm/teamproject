@@ -1,0 +1,49 @@
+{%if OrderAcc %}
+    {% for Order in OrderAcc %}
+    {% if Order['Receiving'] == '1' %}
+
+
+    <div class="container py-4 py-xl-5" style="padding-left: 215px;padding-right: 31px;width: auto;margin-bottom: 200px;">
+        <div style="width: 920px;">
+           
+
+            <div class="row gy-4 row-cols-1 row-cols-sm-2 row-cols-lg-3" style="background: #ffffff;box-shadow: 3px 5px 15px 2px rgb(99,102,105);border-radius: 20px;padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 15px;margin-bottom: 80px;">
+                <div class="col-xl-12">
+                    <div>
+                        <div class="d-flex"><img class="rounded-circle flex-shrink-0 me-3 fit-cover" data-bss-hover-animate="pulse" width="90" height="82" src="{{ url_for('static', filename='assets/img/product_1.png') }}">
+                            <div>
+                                <p class="fw-bold mb-0" style="color: rgb(59,68,95);font-family: 'Abril Fatface', serif;font-size: 28px;">Product Delivery</p>
+                                <p class="text-muted mb-0">{{Order['Email']}}</p>
+                            </div>
+                        </div>
+                        <p class="bg-body-tertiary border rounded border-0 p-4" style="/*border: var(--bs-highlight-color);*/text-align: center;font-family: Abel, sans-serif;font-size: 23px;">{{Order['RequestContent']}}<br>Expected Delivery Time: {{Order['DeliveryTime']}}</p>
+                        <div class="row">
+                            <div class="col-xl-1" style="padding-right: 27px;margin-right: -26px;"><img data-bss-hover-animate="pulse" src="{{ url_for('static', filename='assets/img/start.png') }}" style="width: 70px;"></div>
+                            <div class="col">
+                                <p class="bg-body-tertiary border rounded border-0 p-4" style="/*border: var(--bs-highlight-color);*/padding-left: 67px;margin-left: 27px;font-family: Abel, sans-serif;font-size: 20px;">Starting point: {{Order['PickupAddress']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-1" style="padding-right: 27px;margin-right: -26px;"><img data-bss-hover-animate="pulse" src="{{ url_for('static', filename='assets/img/end.png') }}" style="width: 68px;margin-left: 4px;margin-top: -10px;"></div>
+                            <div class="col">
+                                <p class="bg-body-tertiary border rounded border-0 p-4" style="/*border: var(--bs-highlight-color);*/padding-left: 67px;margin-left: 30px;font-size: 20px;font-family: Abel, sans-serif;">End: {{Order['DeliveryAddress']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col"><button class="btn btn-primary" data-bss-hover-animate="pulse" type="button" style="margin-left: 528px;margin-bottom: 12px;padding-top: 12px;background: rgb(123,182,252);color: rgb(1,1,1);font-size: 20px;border-color: rgb(123,182,252);font-weight: bold;">¥&nbsp; &nbsp;{{Order['AdvancePayment']}}</button>
+                                <a href="{{ url_for('order_details', order_id=Order['rid']) }}">
+                                    <button class="btn btn-primary" name="order_id" value = "{{Order['rid']}}" type="button" id="choose{{ loop.index0 }}" style="margin-left: 50px; margin-bottom: 12px; padding-top: 14px;">Choose This</button>
+                                </a>                                
+
+                                </div>
+                        </div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {%endif%}
+    {%endfor%}
+    {%endif%}
