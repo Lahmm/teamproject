@@ -30,7 +30,9 @@
                         <p class="card-text">Starting point: {{order["PickupAddress"]}}</p>
                         <p>End: {{order["DeliveryAddress"]}}</p>
                     </div>
-                </div><button class="btn btn-primary" type="button" style="margin-left: 268px;margin-top: 12px;background: #f8d685;color: var(--bs-black);border-style: none;border-color: #f8d685;border-top-style: none;">Cancel</button>
+                </div>
+                <a href="{{ url_for('chooseOrder') }}">
+                <button class="btn btn-primary" type="button" style="margin-left: 268px;margin-top: 12px;background: #f8d685;color: var(--bs-black);border-style: none;border-color: #f8d685;border-top-style: none;">Back</button></a>
                 <button id="acceptButton" class="btn btn-primary" type="button" style="margin-left: 35px;margin-top: 10px;background: #f8d685;color: rgb(10,9,9);border-color: #f8d685;border-top-style: none;">Accept</button>
                 <div class="btn-group" role="group"></div>
             </div>
