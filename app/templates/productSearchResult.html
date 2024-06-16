@@ -1,6 +1,6 @@
 {%if OrderAcc %}
     {% for Order in OrderAcc %}
-    {% if Order['Receiving'] == '1' %}
+    {% if Order['Receiving'] == '0' %}
 
 
     <div class="container py-4 py-xl-5" style="padding-left: 215px;padding-right: 31px;width: auto;margin-bottom: 200px;">
@@ -16,7 +16,7 @@
                                 <p class="text-muted mb-0">{{Order['Email']}}</p>
                             </div>
                         </div>
-                        <p class="bg-body-tertiary border rounded border-0 p-4" style="/*border: var(--bs-highlight-color);*/text-align: center;font-family: Abel, sans-serif;font-size: 23px;">{{Order['RequestContent']}}<br>Expected Delivery Time: {{Order['DeliveryTime']}}</p>
+                        <p class="bg-body-tertiary border rounded border-0 p-4" style="/*border: var(--bs-highlight-color);*/text-align: center;font-family: Abel, sans-serif;font-size: 23px;">【{{Order['Merchant']}}】  {{Order['RequestContent']}}<br>Expected Delivery Time: {{Order['DeliveryTime']}}</p>
                         <div class="row">
                             <div class="col-xl-1" style="padding-right: 27px;margin-right: -26px;"><img data-bss-hover-animate="pulse" src="{{ url_for('static', filename='assets/img/start.png') }}" style="width: 70px;"></div>
                             <div class="col">

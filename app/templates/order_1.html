@@ -20,7 +20,7 @@
                             <li class="nav-item"><a class="nav-link active py-3 border-bottom rounded-0" data-bss-hover-animate="pulse" href="accept" aria-current="page" style="height: 140px;background: #ffffff;color: rgb(132,77,51);font-weight: bold;font-family: 'Abril Fatface', serif;"><img src="{{ url_for('static', filename='assets/img/accept.png') }}" width="98" height="84">
                                     <p style="font-size: 23px;">MY Accept</p>
                                 </a></li>
-                            <li class="nav-item"><a class="nav-link active py-3 border-bottom rounded-0" data-bss-hover-animate="pulse" href="request_data.html" aria-current="page" style="height: 145px;background: #ffffff;color: rgb(132,77,51);font-weight: bold;font-family: 'Abril Fatface', serif;"><img src="{{ url_for('static', filename='assets/img/data.png') }}" width="84" height="84">
+                            <li class="nav-item"><a class="nav-link active py-3 border-bottom rounded-0" data-bss-hover-animate="pulse" href="accData" aria-current="page" style="height: 145px;background: #ffffff;color: rgb(132,77,51);font-weight: bold;font-family: 'Abril Fatface', serif;"><img src="{{ url_for('static', filename='assets/img/data.png') }}" width="84" height="84">
                                     <p style="font-size: 23px;">Data View</p>
                                 </a></li>
                             <li class="nav-item"></li>
@@ -57,13 +57,15 @@
                 <div class="text-center text-lg-start py-3 py-lg-1" style="font-family: 'Abril Fatface', serif;color: rgb(84,84,84);">
                     <h2 class="fw-bold mb-2">ORDERS</h2>
                 </div>
-                <p class="text-start" style="font-size: 25px;padding-top: 20px;padding-bottom: 20px;margin-bottom: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; By :<select style="margin-left: 10px;padding: 5px;padding-top: 5px;padding-right: 5px;padding-bottom: 5px;color: var(--bs-black);text-align: center;box-shadow: 3px 3px 10px var(--bs-gray);border-radius: 10px;border-width: 2px;border-color: #f8d685;">
+                <p class="text-start" style="font-size: 25px;padding-top: 20px;padding-bottom: 20px;margin-bottom: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; By Merchant:
+                    <!-- <select style="margin-left: 10px;padding: 5px;padding-top: 5px;padding-right: 5px;padding-bottom: 5px;color: var(--bs-black);text-align: center;box-shadow: 3px 3px 10px var(--bs-gray);border-radius: 10px;border-width: 2px;border-color: #f8d685;">
                     <optgroup label="This is a group">
                         <option value="12" selected="">Merchant</option>
                         <option value="12" selected="">Delivery address</option>
                         <option value="12" selected="">Request item</option>
                     </optgroup>
-                </select></p>
+                </select> -->
+            </p>
                 <form class="d-flex justify-content-center flex-wrap my-2" method="post">
                     <div class="my-2"><input id="searchOrders" class="form-control" type="text" name="email" placeholder="Search Orders" style="margin-right: 20px;padding-right: 22px;width: 333px;"></div>
                     <div class="my-2"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-search" style="font-size: 38px;margin-left: 24px;">
@@ -79,7 +81,7 @@
        
 {%if OrderAcc %}
     {% for Order in OrderAcc %}
-    {% if Order['Receiving'] == '1' %}
+    {% if Order['Receiving'] == '0' %}
 
 
     <div class="container py-4 py-xl-5" style="padding-left: 215px;padding-right: 31px;width: auto;margin-bottom: 200px;">

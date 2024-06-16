@@ -14,7 +14,7 @@
     cancelButtons.forEach(function(button) {
         button.addEventListener('click', function() {
             // 获取订单ID
-            var orderId = button.getAttribute('data-order-id');
+            var orderId = button.getAttribute('data-raid');
 
             
             fetch('/cancelOrder', {
@@ -156,7 +156,7 @@ setInterval(checkForUpdates, interval);
                                             <div class="col">
                                                 <button class="btn btn-primary" data-bss-hover-animate="pulse" type="button" style="margin-bottom: 12px;padding-top: 12px;background: rgb(123,182,252);color: rgb(1,1,1);font-size: 20px;border-color: rgb(123,182,252);font-weight: bold;margin-left: 402px;">¥&nbsp; &nbsp;3</button>
                                                 <button class="btn" data-bss-hover-animate="pulse" type="button" style="margin-left: 50px;margin-bottom: 12px;padding-top: 14px;background: #f8d685;color: rgb(34,39,41);font-size: 20px;font-family: 'Abyssinica SIL', serif;">{{Order['AcceptanceTime']}}</button>
-                                                <button class="btn cancel-order-btn" data-order-id="{{ Order['rid'] }}" data-bss-hover-animate="pulse" type="button" style="margin-left: 50px;margin-bottom: 12px;padding-top: 14px;background: #fd9e98;color: rgb(35,39,41);font-size: 20px;font-family: 'Abyssinica SIL', serif;">Cancel</button>
+                                                <button class="btn cancel-order-btn" data-raid="{{ Order['raid'] }}" data-bss-hover-animate="pulse" type="button" style="margin-left: 50px;margin-bottom: 12px;padding-top: 14px;background: #fd9e98;color: rgb(35,39,41);font-size: 20px;font-family: 'Abyssinica SIL', serif;">Cancel</button>
                                             </div>
                                         </div>
                                         <div></div>
