@@ -1,0 +1,47 @@
+{% extends "layouts/base.html" %}
+<!-- base页面中留存 stylesheets 和 javascripts block, 可以在head中添加部分内容 -->
+{% block stylesheets %}{% endblock stylesheets %}
+{% block javascripts %}{% endblock javascripts %}
+<!-- 更改标题在下方代码块中-->
+{% block title %}<!--页面标题-->{% endblock title %}
+{% block content %}
+    <div style="background: #fffbef;padding-top: 10px;padding-bottom: 100px;margin-top: -24px;margin-bottom: 236px;">
+        <div class="container" style="width: auto;margin-left: 124px;padding-right: 0px;margin-right: 1px;height: auto;background: var(--bs-body-bg);box-shadow: 3px 3px 13px;border-radius: 20px;">
+            <div class="row" style="width: auto;height: auto;padding-right: 0px;padding-left: 0px;margin-right: 156px;margin-left: 160px;padding-bottom: 0px;margin-bottom: 72px;margin-top: 64px;">
+                
+            <div class="col-md-6" style="width: auto;margin-left: -114px;">
+                    <h1 style="margin-top: 20px;"><strong><span style="color: rgb(0, 0, 0);">Food</span> request</strong></h1>
+                    <h5 style="font-size: 30px;font-family: 'ADLaM Display', serif;"><strong><span style="color: rgb(255, 196, 72);">Request content</span></strong></h5><textarea style="width: 440px;"></textarea>
+                  
+                  <!--   这里的button我不知道怎么选中，改成和food页面一样的select了
+                    <div class="row">
+                        <div class="col-xl-3"><button class="btn btn-light" type="button" style="margin-right: 24px;margin-bottom: 15px;background: rgb(255,250,226);"><span style="color: rgb(130, 130, 130);">Medicine</span></button></div>
+                        <div class="col-xl-2"><button class="btn btn-light" type="button" style="margin-right: 24px;margin-bottom: 15px;background: rgb(255,250,226);"><span style="color: rgb(130, 130, 130);">Books</span></button></div>
+                        <div class="col"><button class="btn btn-light" type="button" style="margin-right: 24px;margin-bottom: 15px;background: rgb(255,250,226);"><span style="color: rgb(130, 130, 130);">Living goods</span></button></div>
+                    </div>
+                           -->
+
+
+                    <div class="card" style="margin-top: 20px;">
+                        <form class="p-3 p-xl-4" method="post">
+                            <div class="mb-3"><label class="form-label" for="name-1" style="font-size: 18px;font-weight: bold;">Pick-up location</label><input class="form-control" type="text" id="name-1" name="name" style="border-width: 2px;"></div>
+                            <div class="mb-3"><label class="form-label" for="email" style="font-size: 18px;font-weight: bold;">Delivery location</label><input class="form-control" type="email" id="email" name="email" style="border-width: 2px;"></div>
+                            <div class="mb-3"><label class="form-label" for="message" style="font-size: 18px;font-weight: bold;">Telephone</label><textarea class="form-control" id="message" name="message" rows="6" style="height: 46px;border-width: 2px;"></textarea></div>
+                            <div class="mb-3"><label class="form-label" for="message-1" style="font-size: 18px;font-weight: bold;">Expected delivery time</label><textarea class="form-control" id="message-1" name="message" rows="6" style="height: 46px;border-width: 2px;"></textarea></div>
+                            <div class="mb-3"><label class="form-label" for="message-2" style="font-size: 18px;font-weight: bold;">Fees</label><textarea class="form-control" id="message-2" name="message" rows="6" style="height: 46px;border-width: 2px;"></textarea></div>
+                            <div class="mb-3"><label class="form-label" for="message-3" style="font-size: 18px;font-weight: bold;">Comment</label><textarea class="form-control" id="message-3" name="message" rows="6" style="height: 46px;border-width: 2px;"></textarea></div>
+                        </form>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <p style="width: 200PX;margin-left: 0px;padding-right: 0px;margin-right: 44px;margin-top: 16px;">Payable&nbsp; ¥0.00</p>
+                        </div>
+                        <div class="col" style="width: 200px;padding-left: 10px;text-align: left;padding-top: 10px;"><a class="btn btn-primary" role="button" href="#" style="background: rgb(255,196,72);border-style: none;"><strong>Publish Now</strong></a></div>
+                    </div>
+                    <div class="btn-group" role="group"></div>
+                </div>
+                <div class="col-md-6" style="padding-right: 0px;"><img style="width: auto;height: auto;max-width: 500px;margin-top: 80px;margin-left: 56px;" width="800" height="870" src="static/assets/img/necessarity.png"></div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

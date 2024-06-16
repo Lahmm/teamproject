@@ -78,9 +78,37 @@ def index():
 def order_page():
     return render_template("order_1.html")
 
-@app.route("/login")
-def login():
-    return render_template("Log_in.html")
+@app.route('/login')
+def login(): 
+    return render_template('Log_in.html')
+
+@app.route('/loginsubmit', methods=['POST'])
+def loginsubmit():
+    inputemail =  request.form.get('inputemail')
+    pswd =  request.form.get('pswd')
+    error = False
+    sql= 'use misy410group07'
+    cursor.execute(sql)
+    sql= 'select * from UserProfile where Email = %s'
+    cursor.execute(sql,inputemail)
+    input = cursor.fetchone()
+
+    if not input:
+          error = True
+          flash('email not found')
+
+    if error:
+        return render_template("Log_in.html", inputemail=inputemail,pswd=pswd)
+    elif pswd == input['uPassword']:
+        session['email']=inputemail
+        session['password']=pswd
+        return redirect('/')
+    else:
+        flash('wrong password')
+        return render_template("Log_in.html",inputemail=inputemail,pswd=pswd)
+    
+
+    
 
 
 @app.route("/register")
@@ -118,56 +146,94 @@ def SearchPayment():
 
 
 
-##发送订单
+##发送食品订单————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 @app.route('/food_order')
 def food_order():
+ if is_login(): 
     return render_template('food_order.html')
-
-
-@app.route('/product_order')
-def product_order():
-    return render_template('product_order.html')
+ else:
+    return redirect('/login')
 
 
 @app.route('/ordersubmit', methods=['POST'])
 def OrderSubmit():
 # Get the user input values from the form
- inputemail =request.form.get('inputemail') ##测试用，有登陆界面了删
- detime = request.form.get('detime')
- tele = request.form.get('tele')
- oraddress = request.form.get('oraddress')
- deaddress = request.form.get('deaddress')
- mname = request.form.get('mname')
- apay = request.form.get('apay')
- content = request.form.get('content')
- error = False
- Order_time = datetime.now()
+  inputemail = session.get('email')
+  detime = request.form.get('detime')
+  tele = request.form.get('tele')
+  oraddress = request.form.get('oraddress')
+  deaddress = request.form.get('deaddress')
+  mname = request.form.get('mname')
+  apay = request.form.get('apay')
+  content = request.form.get('content')
+  error = False
+  Order_time = datetime.now()
  # input validation
- if float(apay) < 0 or float(apay) > 1000:
+  if float(apay) < 0 or float(apay) > 1000:
       error = True
       flash('payment should be a number > 0 and < 1000')
- if not mname:
+  if not mname:
       error = True
       flash('Please select Merchant')
- if error:
+  if error:
         #return to the form page
-        return render_template('food_order.html',content=content,detime=detime,tele=tele,oraddress=oraddress, deaddress=deaddress,mname=mname,inputemail=inputemail,apay=apay)
+        return render_template('food_order.html',content=content,detime=detime,tele=tele,oraddress=oraddress, deaddress=deaddress,mname=mname,apay=apay)
     
- else:
+  else:
 #do the database operations
-     sql= 'use misy410group07'
-     cursor.execute(sql)
-     sql = 'insert into OrderRequest (RequestTime, RequestContent, DeliveryTime, OrderTelephone,PickupAddress,DeliveryAddress, Merchant, Email, AdvancePayment) VALUES (%s, %s, %s,%s,%s,%s,%s,%s,%s)'
+       sql= 'use misy410group07'
+       cursor.execute(sql)
+       sql = 'insert into OrderRequest (RequestTime, RequestContent, DeliveryTime, OrderTelephone,PickupAddress,DeliveryAddress, Merchant, Email, AdvancePayment) VALUES (%s, %s, %s,%s,%s,%s,%s,%s,%s)'
 
-     cursor.execute(sql,(Order_time,content,detime,int(tele),oraddress,deaddress,mname,inputemail,float(apay)))
-     flash('order successfully')
-     
-     session['email'] = inputemail ##测试用
-     output = session.get('email')
-     flash(output)
+       cursor.execute(sql,(Order_time,content,detime,int(tele),oraddress,deaddress,mname,inputemail,float(apay)))
+       flash('order successfully')
+       return render_template('food_order.html')
 
+  
+#发送产品订单————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+@app.route('/product_order')
+def product_order():
+    if is_login(): 
+     return render_template('product_order.html')
+    else:
+     return redirect('/login')
+ 
+    
 
-     return render_template('food_order.html')
+@app.route('/productOrdersubmit',methods=['POST'])
+def ProductOrderSubmit():
+# Get the user input values from the form
+  inputemail = session.get('email')
+  detime = request.form.get('detime')
+  tele = request.form.get('tele')
+  oraddress = request.form.get('oraddress')
+  deaddress = request.form.get('deaddress')
+  mname = request.form.get('mname')
+  apay = request.form.get('apay')
+  content = request.form.get('content')
+  order_type = '1'
+  error = False
+  Order_time = datetime.now()
+ # input validation
+  if float(apay) < 0 or float(apay) > 1000:
+      error = True
+      flash('payment should be a number > 0 and < 1000')
+  if not mname:
+      error = True
+      flash('Please select goods')
+  if error:
+        #return to the form page
+        return render_template('product_order.html',content=content,detime=detime,tele=tele,oraddress=oraddress, deaddress=deaddress,mname=mname,apay=apay)
+    
+  else:
+#do the database operations
+       sql= 'use misy410group07'
+       cursor.execute(sql)
+       sql = 'insert into OrderRequest (RequestTime, RequestContent, DeliveryTime, OrderTelephone,PickupAddress,DeliveryAddress, Merchant, Email, AdvancePayment, Type) VALUES (%s, %s, %s,%s,%s,%s,%s,%s,%s,%s)'
+
+       cursor.execute(sql,(Order_time,content,detime,int(tele),oraddress,deaddress,mname,inputemail,float(apay),order_type))
+       flash('order successfully')
+       return render_template('product_order.html')
  
 #我发送的订单
 @app.route('/order_2')
@@ -187,7 +253,7 @@ def order_2():
    else:
      return redirect('/login')
 
-#修改订单
+#修改食物订单
 @app.route('/modify_order', methods=['POST'])  #modify my post
 def modify_order():
   rid= request.form.get('rid')
@@ -198,11 +264,22 @@ def modify_order():
   mInformation = cursor.fetchone()
   session ['rid']= rid
   return render_template('modify_food_order.html',mInformation=mInformation)
+#修改产品订单
+@app.route('/modify_order_product', methods=['POST'])  #modify my post
+def modify_product_order():
+  rid= request.form.get('rid')
+  sql= 'use misy410group07'
+  cursor.execute(sql)
+  sql = 'select * from OrderRequest where rid = %s'
+  cursor.execute(sql,rid)
+  mInformation = cursor.fetchone()
+  session ['rid']= rid
+  return render_template('modify_product_order.html',mInformation=mInformation)
 
+#提交修改食物订单需求
 @app.route('/modifyordersubmit',methods=['POST'])
 def modifysubmit():
   error = False
-  inputemail =request.form.get('inputemail')
   detime = request.form.get('detime')
   tele = request.form.get('tele')
   oraddress = request.form.get('oraddress')
@@ -224,13 +301,46 @@ def modifysubmit():
 
   if error:
         #return to the form page
-      return render_template('modify_food_order.html',content=content,detime=detime,tele=tele,oraddress=oraddress, deaddress=deaddress,mname=mname,inputemail=inputemail,apay=apay,mInformation=mInformation)
+      return render_template('modify_food_order.html',content=content,detime=detime,tele=tele,oraddress=oraddress, deaddress=deaddress,mname=mname,apay=apay,mInformation=mInformation)
 
   else:
     sql = 'update OrderRequest set RequestContent= %s , DeliveryTime= %s, OrderTelephone=%s ,PickupAddress=%s,DeliveryAddress=%s, Merchant=%s, AdvancePayment=%s where rid=%s' 
     cursor.execute(sql,(content,detime,int(tele),oraddress,deaddress,mname,float(apay),rid))
     flash('updated successfully')
     return render_template('modify_food_order.html',mInformation=mInformation)
+  
+#提交产品订单修改需求
+@app.route('/modifyproductsubmit',methods=['POST'])
+def modifyproductsubmit():
+  error = False
+  detime = request.form.get('detime')
+  tele = request.form.get('tele')
+  oraddress = request.form.get('oraddress')
+  deaddress = request.form.get('deaddress')
+  mname = request.form.get('mname')
+  apay =request.form.get('apay')
+  content = request.form.get('content')
+
+  rid = session.get('rid')
+  sql= 'use misy410group07'
+  cursor.execute(sql)
+  sql = 'select * from OrderRequest where rid = %s'
+  cursor.execute(sql,rid)
+  mInformation = cursor.fetchone() ##这里有点问题，if error不知道怎么返回重新输入后的值
+ 
+  if float(apay) < 0 or float(apay) > 1000:
+       error = True
+       flash('payment should be a number > 0 and < 1000')
+
+  if error:
+        #return to the form page
+      return render_template('modify_product_order.html',content=content,detime=detime,tele=tele,oraddress=oraddress, deaddress=deaddress,mname=mname,apay=apay,mInformation=mInformation)
+
+  else:
+    sql = 'update OrderRequest set RequestContent= %s , DeliveryTime= %s, OrderTelephone=%s ,PickupAddress=%s,DeliveryAddress=%s, Merchant=%s, AdvancePayment=%s where rid=%s' 
+    cursor.execute(sql,(content,detime,int(tele),oraddress,deaddress,mname,float(apay),rid))
+    flash('updated successfully')
+    return render_template('modify_product_order.html',mInformation=mInformation)  
 
 #取消订单
 @app.route('/deleteRequest',methods=['POST'])

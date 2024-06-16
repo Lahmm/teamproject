@@ -34,9 +34,7 @@
                     </select>
                     <div class="card" style="margin-top: 20px;">
 
-                        <div class="mb-3"><label class="form-label" for="inputemail">Email(测试用，有登录界面后删)</label><input
-                                class="form-control" type="email" id="inputemail" name="inputemail"
-                                value="{{mInformation['Email']}}" required></div>
+                    
                         <div class="mb-3"><label class="form-label" for="oraddress"
                                 style="font-size: 18px;font-weight: bold;">Pick-up location</label><input
                                 class="form-control" type="text" id="oraddress" name="oraddress"
@@ -47,7 +45,7 @@
                                 value="{{mInformation['DeliveryAddress']}}" style="border-width: 2px;" required></div>
                         <div class="mb-3"><label class="form-label" for="tele"
                                 style="font-size: 18px;font-weight: bold;">Telephone</label><input
-                                style="border-width: 2px;" name="tele" value="{{mInformation['OrderTelephone']}}" required></div>
+                                class="form-control" style="border-width: 2px;" name="tele" value="{{mInformation['OrderTelephone']}}" required></div>
                         <div class="mb-3"><label class="form-label" for="detime"
                                 style="font-size: 18px;font-weight: bold;">Expected delivery time</label> <input
                                 type="datetime-local" id="detime" name="detime" value="{{mInformation['DeliveryTime']}}" required></div>

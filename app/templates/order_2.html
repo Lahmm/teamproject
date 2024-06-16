@@ -74,8 +74,9 @@
             </div>
         </div>
 
-
+<!--下单的食品-->
         {% for orequest in oRequests %}
+        {%if orequest['Type'] =='0' %}
         <div class="row gy-4 row-cols-1 row-cols-sm-2 row-cols-lg-3"
             style="background: #ffffff;box-shadow: 3px 5px 15px 2px rgb(99,102,105);border-radius: 20px;padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 15px;margin-bottom: 80px;">
             <div class="col-xl-12">
@@ -136,8 +137,76 @@
                 </div>
             </div>
         </div>
+        {%endif%}
         {%endfor%}
 
+
+<!--下单的产品-->
+        {% for orequest in oRequests %}
+        {%if orequest['Type'] =='1' %}
+        <div class="row gy-4 row-cols-1 row-cols-sm-2 row-cols-lg-3"
+            style="background: #ffffff;box-shadow: 3px 5px 15px 2px rgb(99,102,105);border-radius: 20px;padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 15px;margin-bottom: 80px;">
+            <div class="col-xl-12">
+                <div>
+                    <div class="d-flex"><img class="rounded-circle flex-shrink-0 me-3 fit-cover"
+                            data-bss-hover-animate="pulse" width="90" height="82" src="static/assets/img/product_1.png">
+                        <div>
+                            <p class="fw-bold mb-0"
+                                style="color: rgb(59,68,95);font-family: 'Abril Fatface', serif;font-size: 28px;">Food
+                                Delivery</p>
+                            <p class="text-muted mb-0">{{orequest['Email']}}</p>
+                        </div>
+                    </div>
+                    <p class="bg-body-tertiary border rounded border-0 p-4"
+                        style="/*border: var(--bs-highlight-color);*/text-align: center;font-family: Abel, sans-serif;font-size: 23px;">
+                        Merchant: {{orequest['Merchant']}}<br>Remarks: {{orequest['RequestContent']}}</p>
+                    <div class="row">
+                        <div class="col-xl-1" style="padding-right: 27px;margin-right: -26px;"><img
+                                data-bss-hover-animate="pulse" src="static/assets/img/start.png" style="width: 70px;">
+                        </div>
+                        <div class="col">
+                            <p class="bg-body-tertiary border rounded border-0 p-4"
+                                style="/*border: var(--bs-highlight-color);*/padding-left: 67px;margin-left: 27px;font-family: Abel, sans-serif;font-size: 20px;">
+                                Starting point: {{orequest['PickupAddress']}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-1" style="padding-right: 27px;margin-right: -26px;"><img
+                                data-bss-hover-animate="pulse" src="static/assets/img/end.png"
+                                style="width: 68px;margin-left: 4px;margin-top: -10px;"></div>
+                        <div class="col">
+                            <p class="bg-body-tertiary border rounded border-0 p-4"
+                                style="/*border: var(--bs-highlight-color);*/padding-left: 67px;margin-left: 30px;font-size: 20px;font-family: Abel, sans-serif;">
+                                End: {{orequest['DeliveryAddress']}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col"><button class="btn btn-primary"
+                                data-bss-hover-animate="pulse" type="button"
+                                style="margin-bottom: 12px;padding-top: 12px;background: rgb(123,182,252);color: rgb(1,1,1);font-size: 20px;border-color: rgb(123,182,252);font-weight: bold;margin-left: 402px;">¥&nbsp;
+                                &nbsp;{{orequest['AdvancePayment']}}</button>
+
+                            <form action="/modify_order_product" method="post">
+                                <button class="btn" data-bss-hover-animate="pulse"
+                                    type="submit" name="rid" value="{{orequest['rid']}}"
+                                    style="margin-left: 50px;margin-bottom: 12px;padding-top: 14px;background: #f8d685;color: rgb(34,39,41);font-size: 20px;font-family: 'Abyssinica SIL', serif;">Modify</button>
+                                </form>
+                            <form action="/deleteRequest" method="post">
+                                <a href="{{url_for('deleteRequest')}}" onclick="{if(confirm('are you sure to delete?')){this.document.formname.submit();return true;}return false;}"><button class="btn" name="rid" value="{{orequest['rid']}}"
+                                    data-bss-hover-animate="pulse" type="submit" 
+                                    style="margin-left: 50px;margin-bottom: 12px;padding-top: 14px;background: #fd9e98;color: rgb(35,39,41);font-size: 20px;font-family: 'Abyssinica SIL', serif;">Cancel
+                                    This Order</button></a>
+                                </form>
+                        </div>
+                    </div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+        {%endif%}
+        {%endfor%}
+    <!--
         <div class="row gy-4 row-cols-1 row-cols-sm-2 row-cols-lg-3"
             style="background: #ffffff;box-shadow: 3px 5px 15px 2px rgb(99,102,105);border-radius: 20px;padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 15px;margin-bottom: 80px;">
             <div class="col-xl-12">
@@ -185,7 +254,10 @@
                     <div></div>
                 </div>
             </div>
-        </div>
+        </div>-->
+
+
+
     </div>
 </div>
 {% endblock content %}
