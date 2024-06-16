@@ -235,7 +235,7 @@ def ProductOrderSubmit():
        flash('order successfully')
        return render_template('product_order.html')
  
-#我发送的订单
+#我发送的订单——————————————————————————————————————————————
 @app.route('/order_2')
 def order_2():
    if is_login():
@@ -253,7 +253,7 @@ def order_2():
    else:
      return redirect('/login')
 
-#修改食物订单
+#修改食物订单——————————————————————————————————————————————————————————
 @app.route('/modify_order', methods=['POST'])  #modify my post
 def modify_order():
   rid= request.form.get('rid')
@@ -264,7 +264,7 @@ def modify_order():
   mInformation = cursor.fetchone()
   session ['rid']= rid
   return render_template('modify_food_order.html',mInformation=mInformation)
-#修改产品订单
+#修改产品订单——————————————————————————————————————————————————————————————
 @app.route('/modify_order_product', methods=['POST'])  #modify my post
 def modify_product_order():
   rid= request.form.get('rid')
@@ -276,7 +276,7 @@ def modify_product_order():
   session ['rid']= rid
   return render_template('modify_product_order.html',mInformation=mInformation)
 
-#提交修改食物订单需求
+#提交修改食物订单需求————————————————————————————————————————————————————
 @app.route('/modifyordersubmit',methods=['POST'])
 def modifysubmit():
   error = False
@@ -309,7 +309,7 @@ def modifysubmit():
     flash('updated successfully')
     return render_template('modify_food_order.html',mInformation=mInformation)
   
-#提交产品订单修改需求
+#提交产品订单修改需求————————————————————————————————————————————————————————
 @app.route('/modifyproductsubmit',methods=['POST'])
 def modifyproductsubmit():
   error = False
@@ -342,7 +342,7 @@ def modifyproductsubmit():
     flash('updated successfully')
     return render_template('modify_product_order.html',mInformation=mInformation)  
 
-#取消订单
+#取消订单————————————————————————————————————————————————————————————
 @app.route('/deleteRequest',methods=['POST'])
 def deleteRequest():
   rid = request.form.get('rid')
@@ -353,11 +353,11 @@ def deleteRequest():
   return redirect('/order_2')
 
 
-#order request可视化
+#order request可视化————————————————————————————————————————————
 @app.route('/request_data')
 def request_data():
   if is_login():
-    sql = 'select Merchant from OrderRequest'
+    sql = 'select distinct Merchant from OrderRequest'
     cursor.execute(sql)  #is a table
     merchants = cursor.fetchall()
     return render_template('request_data.html',merchants=merchants)
@@ -367,27 +367,21 @@ def request_data():
 
 @app.route('/RequestGraph', methods=['GET'])
 def request_graph():
-
-    mname = request.args.get('mname')
+    mname = request.args.get('merchant')
     if mname:
         sql = 'select Merchant as label, count(rid) as value from OrderRequest where Merchant = %s group by Merchant'
         cursor.execute(sql,(mname))
         merchants_view = cursor.fetchall()
         chartData = json.dumps(merchants_view)
-        flash(mname)
-        return render_template('request_graph.html', merchants_view=chartData)
+        return render_template('request_graph.html', chartData=chartData)
+        
      
-        #flash(merchants_view)
-       # return render_template('request_data.html')
     else:
         sql = 'select Merchant as label, count(rid) as value from OrderRequest group by Merchant'
         cursor.execute(sql)
         merchants_view = cursor.fetchall()
-        #flash(merchants_view)
-        #return render_template('request_data.html')
         chartData = json.dumps(merchants_view)
-        flash('nothing')
-        return render_template('request_graph.html',merchants_view=chartData)
-   
+        return render_template('request_graph.html',chartData=chartData)
+      
 
 
