@@ -1,0 +1,46 @@
+<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+<script type="text/javascript"
+  src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.gammel.js"></script>
+
+<script>
+
+  //receive data from views.py
+  var importedData = JSON.parse({{ chartData | tojson | safe}});
+  const dataSource = {
+    chart: {
+      caption: "Total Order Requests by Merchant",
+      subcaption: " select a merchant to see the total orders",
+      xaxisname: "Merchant Name",
+      yaxisname: "Total Order Requests",
+      theme: "gammel"
+    },
+    data: importedData
+  };
+
+  FusionCharts.ready(function () {
+    var myChart = new FusionCharts({
+      type: "column2d",
+      renderAt: "chart-container",
+      width: "100%",
+      height: "100%",
+      dataFormat: "json",
+      dataSource
+    }).render();
+  });
+
+</script>
+
+<style>
+  .chart-container-wrapper {
+    border: 10px solid brown;
+    padding: 20px;
+    margin: 20px auto;
+    width: 90%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    background-color: #f8f8f8;
+  }
+</style>
+<div id="chart-container-wrapper">
+  <div id="chart-container" style="width: 100%; height: 600px;"></div>
+</div>
