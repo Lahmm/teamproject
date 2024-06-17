@@ -47,14 +47,8 @@ def index():
 
 
 @app.route("/order_1")
-def order_page():
+def order_1():
     return render_template("order_1.html")
-
-
-@app.route("/order_details")
-def order_page():
-    return render_template("order_1.html")
-
 
 @app.route("/login")
 def login():
