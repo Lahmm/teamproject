@@ -1,0 +1,89 @@
+<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js">console.log("1");</script>
+<!-- Step 2 - Include the fusion theme -->
+<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js">console.log("2");</script>
+<script>
+
+        console.log("3");
+        var importedData = JSON.parse({{acc | tojson |safe}});
+        const dataSource = {
+            chart: {
+                caption: "Order Acceptance Over Time",
+                subcaption: `Grouped by {{ group }}`,
+                yaxisname: "Number of Orders",
+                theme: "candy"
+            },
+            data: importedData
+        };
+
+        FusionCharts.ready(function() {
+        var myChart = new FusionCharts({
+            type: "column3d",
+            renderAt: "chart-container",
+            width: "100%",
+            height: "100%",
+            dataFormat: "json",
+            dataSource
+        }).render();
+        });
+        
+        var importedData2 = JSON.parse({{acc | tojson |safe}});
+        console.log("Fine")
+        console.log(importedData2)
+        const dataSource2 = {
+  chart: {
+    caption: "Order Acceptance Over Time",
+    yaxisname: "Number of Orders",
+    anchorradius: "5",
+    plottooltext: "Order Acceptance Over Time Grouped by {{ group }}",
+    showhovereffect: "1",
+    showvalues: "0",
+    numbersuffix: "°C",
+    theme: "gammel",
+    anchorbgcolor: "#72D7B2",
+    palettecolors: "#72D7B2"
+  },
+  data: importedData2
+};
+
+FusionCharts.ready(function() {
+  var myChart = new FusionCharts({
+    type: "spline",
+    renderAt: "chart-container2",
+    width: "100%",
+    height: "100%",
+    dataFormat: "json",
+    dataSource: dataSource2 // 注意这里是 dataSource 而不是 dataSource2
+  }).render();
+});
+
+
+
+
+    // // 初始化时加载默认时间范围的数据
+    // document.getElementById('timeRangeSelect').dispatchEvent(new Event('change'));
+</script> 
+<style>
+    .chart-container-wrapper {
+        border: 10px solid brown; /* 边框加粗 */
+        padding: 20px;
+        margin: 20px auto; /* 自动水平居中 */
+        width: 90%; /* 宽度调整 */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        border-radius: 15px; /* 圆角边框 */
+        background-color: #f8f8f8; /* 背景颜色 */
+    }
+</style>
+
+        <div>
+            <!-- <section><img src="{{ url_for('static', filename='assets/img/bg.png') }}" width="1000px" style="margin-left: 200px;"></section> -->
+            <div class="chart-container-wrapper">
+                <div id="chart-container" style="width: 100%; height: 600px;"></div>
+            </div>
+
+            <div class="chart-container-wrapper">
+                <div id="chart-container2" style="width: 100%; height: 600px;"></div>
+            </div>
+            
+
+        </div>
+

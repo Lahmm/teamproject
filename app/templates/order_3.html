@@ -5,22 +5,89 @@
 <!-- 更改标题在下方代码块中-->
 {% block title %}<!--页面标题-->{% endblock title %}
 {% block content %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+    var cancelButtons = document.querySelectorAll('.cancel-order-btn');
+
+    // 为每个取消订单按钮添加点击事件监听器
+    cancelButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            // 获取订单ID
+            var orderId = button.getAttribute('data-raid');
+
+            
+            fetch('/cancelOrder', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ orderId: orderId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // 根据响应中的消息内容来显示相应的提示
+                if (data.message === 'Order has been successfully canceled') {
+                    // 显示成功取消订单的提示
+                    alert('Order has been successfully canceled');
+                } else {
+                    // 显示订单取消失败的提示
+                    alert('Order Cancellation Failed');
+                }
+            })
+            .catch(error => {
+                console.error('网络请求错误:', error);
+            });
+        });
+    });
+});
+
+function checkForUpdates() {
+    fetch('/checkForUpdates') // 发送请求到后端检查是否有更新
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('Network response was not ok.');
+    })
+    .then(data => {
+        if (data.updatesAvailable) {
+            // 如果有更新，则执行页面更新操作
+            console.log('Updates available. Refreshing page...');
+            location.reload(); // 刷新页面
+        } else {
+            console.log('No updates available.');
+        }
+    })
+    .catch(error => {
+        console.error('Error checking for updates:', error);
+    });
+}
+
+// 设置定时器，每隔一定时间执行一次检查更新操作
+const interval = 60000; // 间隔时间，单位为毫秒（这里设置为一分钟）
+setInterval(checkForUpdates, interval);
+
+
+</script>
+
+
     <div class="tab-content" style="margin-top: -46px;">
         <div class="container">
             <div class="row" style="margin-top: 80px;">
                 <div class="col-md-8 col-xl-2" style="margin-top: -44px;">
                     <div class="bg-body shadow d-flex flex-column flex-shrink-0 top-0 bottom-0" style="width: 15rem;height: 600px;position: fixed;margin-right: 0px;border-radius: 20px;margin-top: 150px;padding-left: 0px;margin-left: -106px;">
                         <ul class="nav nav-pills flex-column text-center nav-flush mb-auto">
-                            <li class="nav-item"><a class="nav-link active py-3 border-bottom rounded-0" data-bss-hover-animate="pulse" href="order_1.html" aria-current="page" style="height: 130px;background: #ffffff;color: rgb(132,77,51);font-weight: bold;font-family: 'Abril Fatface', serif;"><img src="static/assets/img/order.png" width="66" height="70">
+                            <li class="nav-item"><a class="nav-link active py-3 border-bottom rounded-0" data-bss-hover-animate="pulse" href="chooseOrder" aria-current="page" style="height: 130px;background: #ffffff;color: rgb(132,77,51);font-weight: bold;font-family: 'Abril Fatface', serif;"><img src="{{ url_for('static', filename='assets/img/order.png') }}" width="66" height="70">
                                     <p style="font-size: 23px;">Choose Orders</p>
                                 </a></li>
-                            <li class="nav-item"><a class="nav-link active py-3 border-bottom rounded-0" data-bss-hover-animate="pulse" href="order_2.html" aria-current="page" style="height: 185px;background: #ffffff;color: rgb(132,77,51);font-weight: bold;font-family: 'Abril Fatface', serif;"><img src="static/assets/img/post.png" width="60px">
+                            <li class="nav-item"><a class="nav-link active py-3 border-bottom rounded-0" data-bss-hover-animate="pulse" href="order_2.html" aria-current="page" style="height: 185px;background: #ffffff;color: rgb(132,77,51);font-weight: bold;font-family: 'Abril Fatface', serif;"><img src="{{ url_for('static', filename='assets/img/post.png') }}" width="60px">
                                     <p style="font-size: 23px;">MY Post</p>
                                 </a></li>
-                            <li class="nav-item"><a class="nav-link active py-3 border-bottom rounded-0" data-bss-hover-animate="pulse" href="order_3.html" aria-current="page" style="height: 140px;background: #f8d685;color: rgb(132,77,51);font-weight: bold;font-family: 'Abril Fatface', serif;"><img src="static/assets/img/accept.png" width="98" height="84">
+                            <li class="nav-item"><a class="nav-link active py-3 border-bottom rounded-0" data-bss-hover-animate="pulse" href="accept" aria-current="page" style="height: 140px;background: #f8d685;color: rgb(132,77,51);font-weight: bold;font-family: 'Abril Fatface', serif;"><img src="{{ url_for('static', filename='assets/img/accept.png') }}" width="98" height="84">
                                     <p style="font-size: 23px;">MY Accept</p>
                                 </a></li>
-                            <li class="nav-item"><a class="nav-link active py-3 border-bottom rounded-0" data-bss-hover-animate="pulse" href="request_data.html" aria-current="page" style="height: 145px;background: #ffffff;color: rgb(132,77,51);font-weight: bold;font-family: 'Abril Fatface', serif;"><img src="static/assets/img/data.png" width="84" height="84">
+                            <li class="nav-item"><a class="nav-link active py-3 border-bottom rounded-0" data-bss-hover-animate="pulse" href="request_data.html" aria-current="page" style="height: 145px;background: #ffffff;color: rgb(132,77,51);font-weight: bold;font-family: 'Abril Fatface', serif;"><img src="{{ url_for('static', filename='assets/img/data.png') }}" width="84" height="84">
                                     <p style="font-size: 23px;">Data View</p>
                                 </a></li>
                             <li class="nav-item"></li>
@@ -45,69 +112,64 @@
             </div>
         </div>
     </div>
-    <div class="container py-4 py-xl-5" style="padding-left: 215px;padding-right: 31px;width: auto;margin-bottom: 200px;">
-        <div style="width: 920px;">
-            <div class="row mb-5">
-                <div class="col-md-8 col-xl-6 text-center mx-auto">
-                    <h2 style="font-family: 'Abril Fatface', serif;color: rgb(132,77,51);font-size: 40px;">MY Accept</h2>
-                </div>
-            </div>
-            <div class="row gy-4 row-cols-1 row-cols-sm-2 row-cols-lg-3" style="background: #ffffff;box-shadow: 3px 5px 15px 2px rgb(99,102,105);border-radius: 20px;padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 15px;margin-bottom: 80px;">
-                <div class="col-xl-12">
-                    <div>
-                        <div class="d-flex"><img class="rounded-circle flex-shrink-0 me-3 fit-cover" data-bss-hover-animate="pulse" width="90" height="82" src="static/assets/img/food_1.png">
-                            <div>
-                                <p class="fw-bold mb-0" style="color: rgb(59,68,95);font-family: 'Abril Fatface', serif;font-size: 28px;">Food Delivery</p>
-                                <p class="text-muted mb-0">1345@163.com</p>
-                            </div>
-                        </div>
-                        <p class="bg-body-tertiary border rounded border-0 p-4" style="/*border: var(--bs-highlight-color);*/text-align: center;font-family: Abel, sans-serif;font-size: 23px;">Lukin Coffee: A cup<br>Remarks: Delivery as soon as possible</p>
-                        <div class="row">
-                            <div class="col-xl-1" style="padding-right: 27px;margin-right: -26px;"><img data-bss-hover-animate="pulse" src="static/assets/img/start.png" style="width: 70px;"></div>
-                            <div class="col">
-                                <p class="bg-body-tertiary border rounded border-0 p-4" style="/*border: var(--bs-highlight-color);*/padding-left: 67px;margin-left: 27px;font-family: Abel, sans-serif;font-size: 20px;">Starting point: Lukin Coffee（In school)</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xl-1" style="padding-right: 27px;margin-right: -26px;"><img data-bss-hover-animate="pulse" src="static/assets/img/end.png" style="width: 68px;margin-left: 4px;margin-top: -10px;"></div>
-                            <div class="col">
-                                <p class="bg-body-tertiary border rounded border-0 p-4" style="/*border: var(--bs-highlight-color);*/padding-left: 67px;margin-left: 30px;font-size: 20px;font-family: Abel, sans-serif;">End: Room 122, Gezhi Building</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col"><button class="btn btn-primary" data-bss-hover-animate="pulse" type="button" style="margin-bottom: 12px;padding-top: 12px;background: rgb(123,182,252);color: rgb(1,1,1);font-size: 20px;border-color: rgb(123,182,252);font-weight: bold;margin-left: 402px;">¥&nbsp; &nbsp;3</button><a href="modify_order_details.html"><button class="btn" data-bss-hover-animate="pulse" type="button" style="margin-left: 50px;margin-bottom: 12px;padding-top: 14px;background: #f8d685;color: rgb(34,39,41);font-size: 20px;font-family: 'Abyssinica SIL', serif;">Modify</button></a><a href="cancel_order.html"><button class="btn" data-bss-hover-animate="pulse" type="button" style="margin-left: 50px;margin-bottom: 12px;padding-top: 14px;background: #fd9e98;color: rgb(35,39,41);font-size: 20px;font-family: 'Abyssinica SIL', serif;">Cancel This Order</button></a></div>
-                        </div>
-                        <div></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row gy-4 row-cols-1 row-cols-sm-2 row-cols-lg-3" style="background: #ffffff;box-shadow: 3px 5px 15px 2px rgb(99,102,105);border-radius: 20px;padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 15px;margin-bottom: 80px;">
-                <div class="col-xl-12">
-                    <div>
-                        <div class="d-flex"><img class="rounded-circle flex-shrink-0 me-3 fit-cover" data-bss-hover-animate="pulse" width="90" height="82" src="static/assets/img/product_1.png">
-                            <div>
-                                <p class="fw-bold mb-0" style="color: rgb(59,68,95);font-family: 'Abril Fatface', serif;font-size: 28px;">Product Delivery</p>
-                                <p class="text-muted mb-0">1345@163.com</p>
-                            </div>
-                        </div>
-                        <p class="bg-body-tertiary border rounded border-0 p-4" style="/*border: var(--bs-highlight-color);*/text-align: center;font-family: Abel, sans-serif;font-size: 23px;">Lukin Coffee: A cup<br>Remarks: Delivery as soon as possible</p>
-                        <div class="row">
-                            <div class="col-xl-1" style="padding-right: 27px;margin-right: -26px;"><img data-bss-hover-animate="pulse" src="static/assets/img/start.png" style="width: 70px;"></div>
-                            <div class="col">
-                                <p class="bg-body-tertiary border rounded border-0 p-4" style="/*border: var(--bs-highlight-color);*/padding-left: 67px;margin-left: 27px;font-family: Abel, sans-serif;font-size: 20px;">Starting point: Lukin Coffee（In school)</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xl-1" style="padding-right: 27px;margin-right: -26px;"><img data-bss-hover-animate="pulse" src="static/assets/img/end.png" style="width: 68px;margin-left: 4px;margin-top: -10px;"></div>
-                            <div class="col">
-                                <p class="bg-body-tertiary border rounded border-0 p-4" style="/*border: var(--bs-highlight-color);*/padding-left: 67px;margin-left: 30px;font-size: 20px;font-family: Abel, sans-serif;">End: Room 122, Gezhi Building</p>
-                            </div>
-                        </div>
-                        <div class="col"><button class="btn btn-primary" data-bss-hover-animate="pulse" type="button" style="margin-bottom: 12px;padding-top: 12px;background: rgb(123,182,252);color: rgb(1,1,1);font-size: 20px;border-color: rgb(123,182,252);font-weight: bold;margin-left: 402px;">¥&nbsp; &nbsp;3</button><a href="modify_order_details.html"><button class="btn" data-bss-hover-animate="pulse" type="button" style="margin-left: 50px;margin-bottom: 12px;padding-top: 14px;background: #f8d685;color: rgb(34,39,41);font-size: 20px;font-family: 'Abyssinica SIL', serif;">Modify</button></a><a href="cancel_order.html"><button class="btn" data-bss-hover-animate="pulse" type="button" style="margin-left: 50px;margin-bottom: 12px;padding-top: 14px;background: #fd9e98;color: rgb(35,39,41);font-size: 20px;font-family: 'Abyssinica SIL', serif;">Cancel This Order</button></a></div>
-                        <div></div>
-                    </div>
-                </div>
-            </div>
+    <div class="row mb-5">
+        <div class="col-md-8 col-xl-6 text-center mx-auto">
+            <h2 style="font-family: 'Abril Fatface', serif;color: rgb(132,77,51);font-size: 40px;">MY Accept</h2>
         </div>
     </div>
+
+
+
+            <div id="placeholder">
+       
+                {%if OrderAcc %}
+                    {% for Order in OrderAcc %}
+                
+                
+                    <div class="container py-4 py-xl-5" style="padding-left: 215px;padding-right: 31px;width: auto;margin-bottom: 200px;">
+                        <div style="width: 920px;">
+                           
+                
+                            <div class="row gy-4 row-cols-1 row-cols-sm-2 row-cols-lg-3" style="background: #ffffff;box-shadow: 3px 5px 15px 2px rgb(99,102,105);border-radius: 20px;padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 15px;margin-bottom: 80px;">
+                                <div class="col-xl-12">
+                                    <div>
+                                        <div class="d-flex"><img class="rounded-circle flex-shrink-0 me-3 fit-cover" data-bss-hover-animate="pulse" width="90" height="82" src="{{ url_for('static', filename='assets/img/product_1.png') }}">
+                                            <div>
+                                                <p class="fw-bold mb-0" style="color: rgb(59,68,95);font-family: 'Abril Fatface', serif;font-size: 28px;">Product Delivery</p>
+                                                <p class="text-muted mb-0">{{Order['Email']}}</p>
+                                            </div>
+                                        </div>
+                                        <p class="bg-body-tertiary border rounded border-0 p-4" style="/*border: var(--bs-highlight-color);*/text-align: center;font-family: Abel, sans-serif;font-size: 23px;">  【{{Order['Merchant']}}】  {{Order['RequestContent']}}<br>Expected Delivery Time: {{Order['DeliveryTime']}}</p>
+                                        <div class="row">
+                                            <div class="col-xl-1" style="padding-right: 27px;margin-right: -26px;"><img data-bss-hover-animate="pulse" src="{{ url_for('static', filename='assets/img/start.png') }}" style="width: 70px;"></div>
+                                            <div class="col">
+                                                <p class="bg-body-tertiary border rounded border-0 p-4" style="/*border: var(--bs-highlight-color);*/padding-left: 67px;margin-left: 27px;font-family: Abel, sans-serif;font-size: 20px;">Starting point: {{Order['PickupAddress']}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-1" style="padding-right: 27px;margin-right: -26px;"><img data-bss-hover-animate="pulse" src="{{ url_for('static', filename='assets/img/end.png') }}" style="width: 68px;margin-left: 4px;margin-top: -10px;"></div>
+                                            <div class="col">
+                                                <p class="bg-body-tertiary border rounded border-0 p-4" style="/*border: var(--bs-highlight-color);*/padding-left: 67px;margin-left: 30px;font-size: 20px;font-family: Abel, sans-serif;">End: {{Order['DeliveryAddress']}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <button class="btn btn-primary" data-bss-hover-animate="pulse" type="button" style="margin-bottom: 12px;padding-top: 12px;background: rgb(123,182,252);color: rgb(1,1,1);font-size: 20px;border-color: rgb(123,182,252);font-weight: bold;margin-left: 402px;">¥&nbsp; &nbsp;3</button>
+                                                <button class="btn" data-bss-hover-animate="pulse" type="button" style="margin-left: 50px;margin-bottom: 12px;padding-top: 14px;background: #f8d685;color: rgb(34,39,41);font-size: 20px;font-family: 'Abyssinica SIL', serif;">{{Order['AcceptanceTime']}}</button>
+                                                <button class="btn cancel-order-btn" data-raid="{{ Order['raid'] }}" data-bss-hover-animate="pulse" type="button" style="margin-left: 50px;margin-bottom: 12px;padding-top: 14px;background: #fd9e98;color: rgb(35,39,41);font-size: 20px;font-family: 'Abyssinica SIL', serif;">Cancel</button>
+                                            </div>
+                                        </div>
+                                        <div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+ 
+                    {%endfor%}
+                    {%endif%}
+                </div>
+
+
 {% endblock content %}
